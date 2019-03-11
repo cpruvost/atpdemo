@@ -8,7 +8,7 @@ pipeline {
     }
 	
 	environment {
-		VAULT_TOKEN =${params.VAULT_TOKEN}
+		VAULT_TOKEN ="${params.VAULT_TOKEN}"
 	}
 	
     stages {
