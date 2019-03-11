@@ -18,7 +18,7 @@ pipeline {
 				echo "VAULT_TOKEN=${params.VAULT_TOKEN}"
 			
 				script {
-					env.TENANCY_OCID = sh returnStdout: true, script: '''curl --header "X-Vault-Token: ${params.VAULT_TOKEN}" --request GET http://130.61.125.123:8200/v1/secret/demoatp | jq .data.tenancy_ocid | sed "s/\"//g"'''
+					env.TENANCY_OCID = sh returnStdout: true, script: '''curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://130.61.125.123:8200/v1/secret/demoatp | jq .data.tenancy_ocid | sed "s/\"//g"'''
 				}
 				
                 echo "TENANCY_OCID=${TENANCY_OCID}"
