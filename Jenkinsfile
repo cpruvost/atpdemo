@@ -37,7 +37,8 @@ pipeline {
 				echo "PRIVATE_KEY=${PRIVATE_KEY}"
 				
 				script {
-					sh 'echo ${API_PRIVATE_KEY > bmcs_api_key.pem'
+					sh 'echo ${API_PRIVATE_KEY} > bmcs_api_key.pem'
+					sh 'pwd'
 					sh 'cat ./bmcs_api_key.pem'
 				}
             }
