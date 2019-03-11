@@ -26,6 +26,8 @@ pipeline {
 					env.COMPARTMENT_OCID = sh returnStdout: true, script: 'echo ${DATA}  | jq .compartment_ocid | cut -d \'"\' -f 2'
 					env.PUBLIC_KEY = sh returnStdout: true, script: 'echo ${DATA}  | jq .public_key | cut -d \'"\' -f 2'
 					env.PRIVATE_KEY = sh returnStdout: true, script: 'echo ${DATA}  | jq .private_key | cut -d \'"\' -f 2'
+					sh 'echo ${API_PRIVATE_KEY > bmcs_api_key.pem'
+					sh 'cat ./bmcs_api_key.pem'
 				}
 				
                 echo "TENANCY_OCID=${TENANCY_OCID}"
