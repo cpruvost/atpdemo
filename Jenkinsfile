@@ -16,14 +16,25 @@ pipeline {
     stages {
         stage('Stage Init Atp Variables') {
             steps {
-				
-				echo "VAULT_TOKEN=${VAULT_TOKEN}"
 			
 				script {
-					env.TENANCY_OCID = sh returnStdout: true, script: 'curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data.tenancy_ocid | cut -d \'"\' -f 2'
+					env.DATA =  sh returnStdout: true, script: 'curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data'
+					env.TENANCY_OCID = echo ${DATA}  | jq .tenancy_ocid | cut -d \'"\' -f 2'
+					env.USER_OCID = echo ${DATA}  | jq .user_ocid | cut -d \'"\' -f 2'
+					env.FINGERPRINT = echo ${DATA}  | jq .fingerprint | cut -d \'"\' -f 2'
+					env.API_PRIVATE_KEY = echo ${DATA}  | jq .api_private_key | cut -d \'"\' -f 2'
+					env.COMPARMENT_OCID = echo ${DATA}  | jq .compartment_ocid | cut -d \'"\' -f 2'
+					env.PUBLIC_KEY = echo ${DATA}  | jq .public_key | cut -d \'"\' -f 2'
+					env.PRIVATE_KEY = echo ${DATA}  | jq .private_key | cut -d \'"\' -f 2'
 				}
 				
                 echo "TENANCY_OCID=${TENANCY_OCID}"
+				echo "USER_OCID=${USER_OCID}"
+				echo "FINGERPRINT=${FINGERPRINT}"
+				echo "API_PRIVATE_KEY=${API_PRIVATE_KEY}"
+				echo "COMPARTMENT_OCID=${COMPARTMENT_OCID}"
+				echo "PUBLIC_KEY=${PUBLIC_KEY}"
+				echo "PRIVATE_KEY=${PRIVATE_KEY}"
             }
         }
     }
