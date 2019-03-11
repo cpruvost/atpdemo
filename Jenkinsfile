@@ -20,7 +20,7 @@ pipeline {
 				echo "VAULT_TOKEN=${VAULT_TOKEN}"
 			
 				script {
-					env.TENANCY_OCID = sh returnStdout: true, script: '''curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data.tenancy_ocid'''
+					env.TENANCY_OCID = sh returnStdout: true, script: 'curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data.tenancy_ocid'
 				}
 				
                 echo "TENANCY_OCID=${TENANCY_OCID}"
