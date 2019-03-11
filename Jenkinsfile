@@ -19,13 +19,13 @@ pipeline {
 			
 				script {
 					env.DATA =  sh returnStdout: true, script: 'curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data'
-					env.TENANCY_OCID = echo ${DATA}  | jq .tenancy_ocid | sed 's/^.\(.*\).$/\1/'
-					env.USER_OCID = echo ${DATA}  | jq .user_ocid | sed 's/^.\(.*\).$/\1/'
-					env.FINGERPRINT = echo ${DATA}  | jq .fingerprint | sed 's/^.\(.*\).$/\1/'
-					env.API_PRIVATE_KEY = echo ${DATA}  | jq .api_private_key | sed 's/^.\(.*\).$/\1/'
-					env.COMPARMENT_OCID = echo ${DATA}  | jq .compartment_ocid | sed 's/^.\(.*\).$/\1/'
-					env.PUBLIC_KEY = echo ${DATA}  | jq .public_key | sed 's/^.\(.*\).$/\1/'
-					env.PRIVATE_KEY = echo ${DATA}  | jq .private_key | sed 's/^.\(.*\).$/\1/'
+					env.TENANCY_OCID = sh 'echo ${DATA}  | jq .tenancy_ocid | cut -d \'"\' -f 2'
+					env.USER_OCID = sh 'echo ${DATA}  | jq .user_ocid | cut -d \'"\' -f 2'
+					env.FINGERPRINT = sh 'echo ${DATA}  | jq .fingerprint | cut -d \'"\' -f 2'
+					env.API_PRIVATE_KEY = sh 'echo ${DATA}  | jq .api_private_key | cut -d \'"\' -f 2'
+					env.COMPARMENT_OCID = sh 'echo ${DATA}  | jq .compartment_ocid | cut -d \'"\' -f 2'
+					env.PUBLIC_KEY = sh 'echo ${DATA}  | jq .public_key | cut -d \'"\' -f 2'
+					env.PRIVATE_KEY = sh 'echo ${DATA}  | jq .private_key | cut -d \'"\' -f 2'
 				}
 				
                 echo "TENANCY_OCID=${TENANCY_OCID}"
