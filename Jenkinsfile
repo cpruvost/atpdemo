@@ -40,9 +40,9 @@ pipeline {
 				
 				script {
 					sh 'echo ${api_private_key} > bmcs_api_key.pem'
-					env.base_path = sh returnStdout: true, script: 'pwd'
+					env.base_path = sh returnStdout: true, script: 'pwd | head --bytes -1'
 					env.file_name = '/bmcs_api_key.pem'
-					env.TF_VAR_private_key_path = sh returnStdout: true, script: 'echo $base_path$file_name'
+					env.TF_VAR_private_key_path = sh returnStdout: true, script: 'echo ${base_path:: -1}${file_name}'
 					sh 'ls'
 					sh 'cat ./bmcs_api_key.pem'
 				}
