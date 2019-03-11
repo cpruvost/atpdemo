@@ -1,7 +1,9 @@
-String tenancy_ocid = null
-String VAULT_TOKEN = "WdPdcgUA1XNy23MoiR8uuOWu"
+String tenancy_ocid = 'Test'
 
 pipeline {
+	environment { 
+        VAULT_TOKEN = 'WdPdcgUA1XNy23MoiR8uuOWu'
+    }
 	
     agent any 
     stages {
