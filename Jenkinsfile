@@ -5,12 +5,14 @@ pipeline {
         password(defaultValue: "WdPdcgUA1XNy23MoiR8uuOWu", description: 'What is the vault token ?', name: 'VAULT_TOKEN')
 		string(defaultValue: "130.61.125.123", description: 'What is the vault server IP Address ?', name: 'VAULT_SERVER_IP')
 		string(defaultValue: "demoatp", description: 'What is the vault secret name ?', name: 'VAULT_SECRET_NAME')  
+		string(defaultValue: "atpdb", description: 'What is the database name ?', name: 'DATABASE_NAME')  
     }
 	
 	environment {
 		VAULT_TOKEN = "${params.VAULT_TOKEN}"
 		VAULT_SERVER_IP = "${params.VAULT_SERVER_IP}"
 		VAULT_SECRET_NAME = "${params.VAULT_SECRET_NAME}"
+		TF_VAR_autonomous_database_db_name = "${params.DATABASE_NAME}"
 	}
 	
     stages {
@@ -51,4 +53,11 @@ pipeline {
             }
         }
     }
+	stage('Stage TF Create Atp ') { 
+            steps {
+				sh 'cd ./tf/modules/atp'
+                sh 'terraform init'
+				sh 'terraform plan -out myplan'
+            }
+        }
 }
