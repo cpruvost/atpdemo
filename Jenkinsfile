@@ -52,12 +52,13 @@ pipeline {
 				echo "TF_VAR_private_key_path=${TF_VAR_private_key_path}"
             }
         }
-    }
-	stage('Stage TF Create Atp ') { 
+		
+		stage('Stage TF Create Atp ') { 
             steps {
 				sh 'cd ./tf/modules/atp'
                 sh 'terraform init'
 				sh 'terraform plan -out myplan'
             }
         }
+    }
 }
