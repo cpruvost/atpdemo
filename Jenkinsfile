@@ -56,6 +56,7 @@ pipeline {
 		stage('Stage TF Create Atp ') { 
             steps {
 				sh 'cd ./tf/modules/atp'
+				sh 'ls'
                 sh 'terraform init'
 				sh 'terraform plan -out myplan'
             }
