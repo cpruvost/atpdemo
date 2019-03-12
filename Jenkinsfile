@@ -26,8 +26,8 @@ pipeline {
 					env.TF_VAR_fingerprint = sh returnStdout: true, script: 'echo ${DATA}  | jq .fingerprint | cut -d \'"\' -f 2'
 					env.api_private_key = sh returnStdout: true, script: 'echo ${DATA}  | jq .api_private_key | cut -d \'"\' -f 2'
 					env.TF_VAR_compartment_ocid = sh returnStdout: true, script: 'echo ${DATA}  | jq .compartment_ocid | cut -d \'"\' -f 2'
-					env.TF_VAR_public_key = sh returnStdout: true, script: 'echo ${DATA}  | jq .public_key | cut -d \'"\' -f 2'
-					env.TF_VAR_private_key = sh returnStdout: true, script: 'echo ${DATA}  | jq .private_key | cut -d \'"\' -f 2'
+					env.TF_VAR_ssh_public_key = sh returnStdout: true, script: 'echo ${DATA}  | jq .public_key | cut -d \'"\' -f 2'
+					env.TF_VAR_ssh_private_key = sh returnStdout: true, script: 'echo ${DATA}  | jq .private_key | cut -d \'"\' -f 2'
 					env.TF_VAR_region = sh returnStdout: true, script: 'echo ${DATA}  | jq .region | cut -d \'"\' -f 2'
 				}
 				
@@ -36,8 +36,8 @@ pipeline {
 				echo "TF_VAR_fingerprint=${TF_VAR_fingerprint}"
 				echo "api_private_key=${api_private_key}"
 				echo "TF_VAR_compartment_ocid=${TF_VAR_compartment_ocid}"
-				echo "TF_VAR_public_key=${TF_VAR_public_key}"
-				echo "TF_VAR_private_key=${TF_VAR_private_key}"
+				echo "TF_VAR_ssh_public_key=${TF_VAR_ssh_public_key}"
+				echo "TF_VAR_ssh_private_key=${TF_VAR_ssh_private_key}"
 				echo "TF_VAR_region=${TF_VAR_region}"
 				
 				script {
