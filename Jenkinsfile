@@ -40,16 +40,19 @@ pipeline {
 				echo "TF_VAR_ssh_private_key=${TF_VAR_ssh_private_key}"
 				echo "TF_VAR_region=${TF_VAR_region}"
 				
-				script {
-					sh 'echo ${api_private_key} > bmcs_api_key.pem'
-					env.base_path = sh returnStdout: true, script: 'pwd | head --bytes -1'
-					env.file_name = '/bmcs_api_key.pem'
-					env.TF_VAR_private_key_path = sh returnStdout: true, script: 'echo ${base_path}${file_name}'
-					sh 'ls'
-					sh 'cat ./bmcs_api_key.pem'
+				dir ('./tf/modules/atp') {
+					script {
+						sh 'echo ${api_private_key} > bmcs_api_key.pem'
+						//env.base_path = sh returnStdout: true, script: 'pwd | head --bytes -1'
+						//env.file_name = '/bmcs_api_key.pem'
+						//env.TF_VAR_private_key_path = sh returnStdout: true, script: 'echo ${base_path}${file_name}'
+						env.TF_VAR_private_key_path = 'bmcs_api_key.pem'
+						sh 'ls'
+						sh 'cat ./bmcs_api_key.pem'
+					}
+					
+					echo "TF_VAR_private_key_path=${TF_VAR_private_key_path}"
 				}
-				
-				echo "TF_VAR_private_key_path=${TF_VAR_private_key_path}"
             }
         }
 		
