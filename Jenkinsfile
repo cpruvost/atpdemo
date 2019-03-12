@@ -46,7 +46,7 @@ pipeline {
 						//env.base_path = sh returnStdout: true, script: 'pwd | head --bytes -1'
 						//env.file_name = '/bmcs_api_key.pem'
 						//env.TF_VAR_private_key_path = sh returnStdout: true, script: 'echo ${base_path}${file_name}'
-						env.TF_VAR_private_key_path = 'bmcs_api_key.pem'
+						env.TF_VAR_private_key_path = './bmcs_api_key.pem'
 						sh 'ls'
 						sh 'cat ./bmcs_api_key.pem'
 					}
