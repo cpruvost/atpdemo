@@ -78,7 +78,7 @@ pipeline {
 							message: 'Let\'s continue the deploy plan',
 							type: "boolean")
 							
-						//sh 'terraform apply myplan'
+						sh 'terraform apply myplan'
 					}
 				}
 			}

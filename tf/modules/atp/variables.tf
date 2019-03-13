@@ -31,9 +31,13 @@ variable "autonomous_database_freeform_tags" {
   default = {
     "Mandatory_Tags.Project" = "DBDevOpsDemoPod",
 	"Mandatory_Tags.Creator" = "christophe.pruvost"
+	"Mandatory_Tags.Schedule" = "24x7"
   }
 }
 
 variable "autonomous_database_license_model" {
   default = "LICENSE_INCLUDED"
+}
+
+variable "terraform_state_url" {
 }
