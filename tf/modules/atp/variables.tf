@@ -38,6 +38,3 @@ variable "autonomous_database_freeform_tags" {
 variable "autonomous_database_license_model" {
   default = "LICENSE_INCLUDED"
 }
-
-variable "terraform_state_url" {
-}
