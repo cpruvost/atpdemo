@@ -21,6 +21,13 @@ pipeline {
             steps {
 			
 				script {
+					sh 'whoami'
+					sh 'source ~/.bashrc' 
+					sh 'terraform --version'
+					sh 'oci --version'
+					sh 'vault --version'
+					sh 'curl --version'
+				
 					env.DATA =  sh returnStdout: true, script: 'curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data'
 					env.TF_VAR_tenancy_ocid = sh returnStdout: true, script: 'echo ${DATA}  | jq .tenancy_ocid | cut -d \'"\' -f 2'
 					env.TF_VAR_user_ocid = sh returnStdout: true, script: 'echo ${DATA}  | jq .user_ocid | cut -d \'"\' -f 2'
@@ -43,8 +50,6 @@ pipeline {
 				
 				dir ('./tf/modules/atp') {
 					script {
-						sh 'whoami'
-						sh 'source ~/.bashrc' 
 						sh 'vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
 						//sh 'echo ${api_private_key} > bmcs_api_key.pem'
 						//env.base_path = sh returnStdout: true, script: 'pwd | head --bytes -1'
