@@ -50,7 +50,7 @@ pipeline {
 				
 				dir ('./tf/modules/atp') {
 					script {
-						sh 'vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
+						sh '/usr/local/bin/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
 						//sh 'echo ${api_private_key} > bmcs_api_key.pem'
 						//env.base_path = sh returnStdout: true, script: 'pwd | head --bytes -1'
 						//env.file_name = '/bmcs_api_key.pem'
