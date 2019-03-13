@@ -70,14 +70,12 @@ pipeline {
 					sh 'terraform plan -out myplan'
 					
 					script {
-						def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
-						
-						if (userInput == true) {
-							echo 'Do terraform apply'
-						} else {
-							echo 'Stop terraform'
-						}
-
+						def deploy_validation = input(
+							id: 'Deploy',
+							message: 'Let\'s continue the deploy plan',
+							type: "boolean")
+							
+						echo 'Deploy OK'
 					}
 				}
 			}
