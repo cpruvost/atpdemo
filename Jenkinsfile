@@ -65,7 +65,7 @@ pipeline {
             steps {
 				dir ('./tf/modules/atp') {
 					sh 'ls'
-					sh 'terraform init -nocolor'
+					sh 'terraform init'
 					sh 'terraform plan -nocolor -out myplan'
 				}
             }
