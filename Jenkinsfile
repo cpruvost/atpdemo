@@ -24,8 +24,8 @@ pipeline {
 					sh 'whoami'
 					sh 'source ~/.bashrc' 
 					sh 'terraform --version'
-					sh 'oci --version'
-					sh 'vault --version'
+					sh '/home/tomcat/bin/oci --version'
+					sh '/usr/local/bin/vault --version'
 					sh 'curl --version'
 				
 					env.DATA =  sh returnStdout: true, script: 'curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data'
