@@ -11,6 +11,7 @@ pipeline {
 	environment {
 		VAULT_TOKEN = "${params.VAULT_TOKEN}"
 		VAULT_SERVER_IP = "${params.VAULT_SERVER_IP}"
+		VAULT_ADDR = "http://${params.VAULT_SERVER_IP}:8200"
 		VAULT_SECRET_NAME = "${params.VAULT_SECRET_NAME}"
 		TF_VAR_autonomous_database_db_name = "${params.DATABASE_NAME}"
 	}
@@ -26,8 +27,8 @@ pipeline {
 					env.TF_VAR_fingerprint = sh returnStdout: true, script: 'echo ${DATA}  | jq .fingerprint | cut -d \'"\' -f 2'
 					env.api_private_key = sh returnStdout: true, script: 'echo ${DATA}  | jq .api_private_key | cut -d \'"\' -f 2'
 					env.TF_VAR_compartment_ocid = sh returnStdout: true, script: 'echo ${DATA}  | jq .compartment_ocid | cut -d \'"\' -f 2'
-					env.TF_VAR_ssh_public_key = sh returnStdout: true, script: 'echo ${DATA}  | jq .public_key | cut -d \'"\' -f 2'
-					env.TF_VAR_ssh_private_key = sh returnStdout: true, script: 'echo ${DATA}  | jq .private_key | cut -d \'"\' -f 2'
+					env.TF_VAR_ssh_public_key = sh returnStdout: true, script: 'echo ${DATA}  | jq .ssh_public_key | cut -d \'"\' -f 2'
+					env.TF_VAR_ssh_private_key = sh returnStdout: true, script: 'echo ${DATA}  | jq .ssh_private_key | cut -d \'"\' -f 2'
 					env.TF_VAR_region = sh returnStdout: true, script: 'echo ${DATA}  | jq .region | cut -d \'"\' -f 2'
 				}
 				
@@ -42,7 +43,8 @@ pipeline {
 				
 				dir ('./tf/modules/atp') {
 					script {
-						sh 'echo ${api_private_key} > bmcs_api_key.pem'
+						sh 'vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
+						//sh 'echo ${api_private_key} > bmcs_api_key.pem'
 						//env.base_path = sh returnStdout: true, script: 'pwd | head --bytes -1'
 						//env.file_name = '/bmcs_api_key.pem'
 						//env.TF_VAR_private_key_path = sh returnStdout: true, script: 'echo ${base_path}${file_name}'
