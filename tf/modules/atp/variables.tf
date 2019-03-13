@@ -29,7 +29,8 @@ variable "autonomous_database_display_name" {
 
 variable "autonomous_database_freeform_tags" {
   default = {
-    "Mandatory_Tags.Project" = "Projet"
+    "Mandatory_Tags.Project" = "DBDevOpsDemoPod",
+	"Mandatory_Tags.Creator" = "christophe.pruvost"
   }
 }
 
