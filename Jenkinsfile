@@ -6,6 +6,7 @@ pipeline {
 		string(defaultValue: "130.61.125.123", description: 'What is the vault server IP Address ?', name: 'VAULT_SERVER_IP')
 		string(defaultValue: "demoatp", description: 'What is the vault secret name ?', name: 'VAULT_SECRET_NAME')  
 		string(defaultValue: "atpdb", description: 'What is the database name ?', name: 'DATABASE_NAME')  
+		string(defaultValue: "https://objectstorage.eu-frankfurt-1.oraclecloud.com/n/oraseemeafrtech1/b/AtpDemo/o/terraform.tfstate", description: 'Where is stored the terraform state ?', name: 'TERRAFORM_STATE_URL')  
     }
 	
 	environment {
@@ -15,6 +16,7 @@ pipeline {
 		VAULT_SECRET_NAME = "${params.VAULT_SECRET_NAME}"
 		TF_VAR_autonomous_database_db_name = "${params.DATABASE_NAME}"
 		TF_CLI_ARGS = "-no-color"
+		TF_VAR_terraform_state_url = "${params.TERRAFORM_STATE_URL}"
 	}
 	
     stages {
@@ -75,7 +77,7 @@ pipeline {
 							message: 'Let\'s continue the deploy plan',
 							type: "boolean")
 							
-						sh 'terraform apply myplan'
+						//sh 'terraform apply myplan'
 					}
 				}
 			}
