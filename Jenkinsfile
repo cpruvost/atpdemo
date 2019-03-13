@@ -70,7 +70,7 @@ pipeline {
 				dir ('./tf/modules/atp') {
 					sh 'ls'
 					sh 'terraform init -backend-config="address=${TF_VAR_terraform_state_url}"'
-					sh 'terraform plan -out myplan'
+					sh 'terraform plan'
 				}
 			}
 		}
@@ -84,7 +84,7 @@ pipeline {
 							message: 'Let\'s continue the deploy plan',
 							type: "boolean")
 							
-						sh 'terraform apply myplan'
+						sh 'terraform apply -auto-approve'
 					}
 				}
 			}
