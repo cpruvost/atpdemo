@@ -50,6 +50,7 @@ pipeline {
 				echo "TF_VAR_ssh_public_key=${TF_VAR_ssh_public_key}"
 				echo "TF_VAR_ssh_private_key=${TF_VAR_ssh_private_key}"
 				echo "TF_VAR_region=${TF_VAR_region}"
+				echo "TF_VAR_terraform_state_url=${TF_VAR_terraform_state_url}"
 				
 				dir ('./tf/modules/atp') {
 					script {
