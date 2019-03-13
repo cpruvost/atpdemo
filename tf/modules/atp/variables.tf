@@ -24,12 +24,12 @@ variable "autonomous_database_defined_tags_value" {
 }
 
 variable "autonomous_database_display_name" {
-  default = "example_autonomous_database"
+  default = "demo_autonomous_database"
 }
 
 variable "autonomous_database_freeform_tags" {
   default = {
-    "Department" = "Finance"
+    "Mandatory_Tags.Project" = "Projet"
   }
 }
 
