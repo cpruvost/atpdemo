@@ -51,10 +51,6 @@ pipeline {
 				dir ('./tf/modules/atp') {
 					script {
 						sh '/usr/local/bin/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
-						//sh 'echo ${api_private_key} > bmcs_api_key.pem'
-						//env.base_path = sh returnStdout: true, script: 'pwd | head --bytes -1'
-						//env.file_name = '/bmcs_api_key.pem'
-						//env.TF_VAR_private_key_path = sh returnStdout: true, script: 'echo ${base_path}${file_name}'
 						env.TF_VAR_private_key_path = './bmcs_api_key.pem'
 						sh 'ls'
 						sh 'cat ./bmcs_api_key.pem'
@@ -69,8 +65,8 @@ pipeline {
             steps {
 				dir ('./tf/modules/atp') {
 					sh 'ls'
-					sh 'terraform init'
-					sh 'terraform plan -out myplan'
+					sh 'terraform init -nocolor'
+					sh 'terraform plan -nocolor -out myplan'
 				}
             }
         }
