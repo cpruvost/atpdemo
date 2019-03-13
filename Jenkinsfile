@@ -69,7 +69,7 @@ pipeline {
             steps {
 				dir ('./tf/modules/atp') {
 					sh 'ls'
-					sh 'terraform init -backend-config=\"address=${TF_VAR_terraform_state_url}\"'
+					sh 'terraform init -backend-config="address=${TF_VAR_terraform_state_url}"'
 					sh 'terraform plan -out myplan'
 				}
 			}
