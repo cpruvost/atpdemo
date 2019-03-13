@@ -1,6 +1,6 @@
 terraform {
   backend "http" {
-    address       = "https://objectstorage.eu-frankfurt-1.oraclecloud.com/n/oraseemeafrtech1/b/AtpDemo/o/terraform.tfstate"
+    address       = "${var.terraform_state_url}"
     update_method = "PUT"
   }
 }
