@@ -71,15 +71,6 @@ pipeline {
 					sh 'ls'
 					sh 'terraform init'
 					sh 'terraform plan -out myplan'
-					
-					script {
-						def deploy_validation = input(
-							id: 'Deploy',
-							message: 'Let\'s continue the deploy plan',
-							type: "boolean")
-							
-						sh 'terraform apply myplan'
-					}
 				}
 			}
 		}
