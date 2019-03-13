@@ -14,6 +14,7 @@ pipeline {
 		VAULT_ADDR = "http://${params.VAULT_SERVER_IP}:8200"
 		VAULT_SECRET_NAME = "${params.VAULT_SECRET_NAME}"
 		TF_VAR_autonomous_database_db_name = "${params.DATABASE_NAME}"
+		TF_CLI_ARGS = "-no-color"
 	}
 	
     stages {
@@ -66,7 +67,7 @@ pipeline {
 				dir ('./tf/modules/atp') {
 					sh 'ls'
 					sh 'terraform init'
-					sh 'terraform plan -nocolor -out myplan'
+					sh 'terraform plan -out myplan'
 				}
             }
         }
