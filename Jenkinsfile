@@ -86,11 +86,11 @@ pipeline {
 					sh 'ls'
 					//Bugg Remote backend
 					sh 'mv ./backend.tf ./backend.tf.donotuse'
-					//sh 'terraform init -input=false'
-					sh(script: "terraform init -input=false", returnStdout: true)
+					sh 'terraform init -input=false'
+					//sh(script: "terraform init -input=false", returnStdout: true)
 					//sh 'terraform init -input=false -backend-config="address=${TF_VAR_terraform_state_url}"'
-					//sh 'terraform plan -out myplan'
-					sh(script: "terraform plan", returnStdout: true)
+					sh 'terraform plan -out myplan'
+					//sh(script: "terraform plan", returnStdout: true)
 				}
 			}
 		}
@@ -104,13 +104,13 @@ pipeline {
 							message: 'Let\'s continue the deploy plan',
 							type: "boolean")
 							
-						//sh 'terraform apply -input=false -auto-approve "myplan"'
+						sh 'terraform apply -input=false -auto-approve "myplan"'
 						
-						sh '''#!/bin/bash
+						/*sh '''#!/bin/bash
 
 						echo "Who I'm $SHELL"
 						terraform apply -input=false -auto-approve "myplan"
-						'''
+						'''*/
 						
 						//sh(script: "terraform apply -input=false -auto-approve myplan", returnStdout: true)
 					}
