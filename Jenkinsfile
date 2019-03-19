@@ -1,10 +1,11 @@
 pipeline {
-	agent {
+	agent any
+	/*agent {
         docker { 
             image 'cpruvost/devops:latest'
             args '-u root:root'
         }
-    }
+    }*/
 	
 	parameters {
         password(defaultValue: "WdPdcgUA1XNy23MoiR8uuOWu", description: 'What is the vault token ?', name: 'VAULT_TOKEN')
@@ -32,10 +33,10 @@ pipeline {
 					sh 'whoami'
 					sh 'source ~/.bashrc' 
 					sh 'terraform --version'
-					//sh '/home/tomcat/bin/oci --version'
-					sh '/root/bin/oci --version'
-					//sh '/usr/local/bin/vault --version'
-					sh '/opt/vault --version'
+					sh '/home/tomcat/bin/oci --version'
+					//sh '/root/bin/oci --version'
+					sh '/usr/local/bin/vault --version'
+					//sh '/opt/vault --version'
 					sh 'curl --version'
 					sh 'echo "show version" > show_version.sql'
 					sh 'exit | /opt/sqlcl/bin/sql /nolog @./show_version.sql'
@@ -63,8 +64,8 @@ pipeline {
 				
 				dir ('./tf/modules/atp') {
 					script {
-						//sh '/usr/local/bin/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
-						sh '/opt/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
+						sh '/usr/local/bin/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
+						//sh '/opt/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
 						env.TF_VAR_private_key_path = './bmcs_api_key.pem'
 						sh 'ls'
 						sh 'cat ./bmcs_api_key.pem'
