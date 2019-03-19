@@ -17,7 +17,7 @@ resource "oci_database_autonomous_database" "autonomous_database" {
   db_name                  = "${var.autonomous_database_db_name}"
 
   #Optional
-  db_workload   = "${var.autonomous_database_db_workload}"
+  #db_workload   = "${var.autonomous_database_db_workload}"
   display_name  = "${var.autonomous_database_display_name}"
   freeform_tags = "${var.autonomous_database_freeform_tags}"
   license_model = "${var.autonomous_database_license_model}"
@@ -29,7 +29,8 @@ data "oci_database_autonomous_databases" "autonomous_databases" {
 
   #Optional
   display_name = "${oci_database_autonomous_database.autonomous_database.display_name}"
-  db_workload  = "${var.autonomous_database_db_workload}"
+  #db_workload  = "${var.autonomous_database_db_workload}"
+  
 }
 
 output "autonomous_database_admin_password" {
