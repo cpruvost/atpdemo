@@ -19,7 +19,7 @@ resource "oci_database_autonomous_database" "autonomous_database" {
   #Optional
   #db_workload   = "${var.autonomous_database_db_workload}"
   display_name  = "${var.autonomous_database_display_name}"
-  freeform_tags = "${var.autonomous_database_freeform_tags}"
+  #freeform_tags = "${var.autonomous_database_freeform_tags}"
   license_model = "${var.autonomous_database_license_model}"
 }
 

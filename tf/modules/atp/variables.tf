@@ -36,7 +36,7 @@ variable "autonomous_database_defined_tags_value" {
 }
 
 variable "autonomous_database_display_name" {
-  default = "example_autonomous_database"
+  default = "demo_autonomous_database"
 }
 
 variable "autonomous_data_warehouse_display_name" {
@@ -52,5 +52,5 @@ variable "autonomous_database_freeform_tags" {
 }
 
 variable "autonomous_database_license_model" {
-  default = "LICENSE_INCLUDED"
+  default = "BRING_YOUR_OWN_LICENSE"
 }
