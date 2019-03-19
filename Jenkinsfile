@@ -1,5 +1,10 @@
 pipeline {
-	agent any 
+	agent {
+        docker { 
+            image 'cpruvost/devops:latest'
+            args '-u root:root'
+        }
+    }
 	
 	parameters {
         password(defaultValue: "WdPdcgUA1XNy23MoiR8uuOWu", description: 'What is the vault token ?', name: 'VAULT_TOKEN')
