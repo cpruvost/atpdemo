@@ -1,11 +1,12 @@
 pipeline {
-	agent any
-	/*agent {
+	//agent any
+	
+	agent {
         docker { 
             image 'cpruvost/devops:latest'
             args '-u root:root'
         }
-    }*/
+    }
 	
 	parameters {
         password(defaultValue: "WdPdcgUA1XNy23MoiR8uuOWu", description: 'What is the vault token ?', name: 'VAULT_TOKEN')
@@ -34,13 +35,13 @@ pipeline {
 					sh 'pwd'
 					//sh 'source ~/.bashrc' 
 					sh 'terraform --version'
-					sh '/home/tomcat/bin/oci --version'
-					//sh '/root/bin/oci --version'
-					sh '/usr/local/bin/vault --version'
-					//sh '/opt/vault --version'
+					//sh '/home/tomcat/bin/oci --version'
+					sh '/root/bin/oci --version'
+					//sh '/usr/local/bin/vault --version'
+					sh '/opt/vault --version'
 					sh 'curl --version'
-					//sh 'echo "show version" > show_version.sql'
-					//sh 'exit | /opt/sqlcl/bin/sql /nolog @./show_version.sql'
+					sh 'echo "show version" > show_version.sql'
+					sh 'exit | /opt/sqlcl/bin/sql /nolog @./show_version.sql'
 				
 					env.DATA =  sh returnStdout: true, script: 'curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data'
 					env.TF_VAR_tenancy_ocid = sh returnStdout: true, script: 'echo ${DATA}  | jq .tenancy_ocid | cut -d \'"\' -f 2'
@@ -65,8 +66,8 @@ pipeline {
 				
 				dir ('./tf/modules/atp') {
 					script {
-						sh '/usr/local/bin/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
-						//sh '/opt/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
+						//sh '/usr/local/bin/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
+						sh '/opt/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
 						env.TF_VAR_private_key_path = './bmcs_api_key.pem'
 						sh 'ls'
 						sh 'cat ./bmcs_api_key.pem'
@@ -82,9 +83,9 @@ pipeline {
 				dir ('./tf/modules/atp') {
 					sh 'ls'
 					//Bugg Remote backend
-					sh 'mv ./backend.tf ./backend.tf.donotuse'
-					sh 'terraform init -input=false'
-					//sh 'terraform init -input=false -backend-config="address=${TF_VAR_terraform_state_url}"'
+					//sh 'mv ./backend.tf ./backend.tf.donotuse'
+					//sh 'terraform init -input=false'
+					sh 'terraform init -input=false -backend-config="address=${TF_VAR_terraform_state_url}"'
 					sh 'terraform plan -out myplan'
 				}
 			}
