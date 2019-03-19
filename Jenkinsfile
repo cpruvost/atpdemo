@@ -31,7 +31,8 @@ pipeline {
 			
 				script {
 					sh 'whoami'
-					sh 'source ~/.bashrc' 
+					sh 'pwd'
+					//sh 'source ~/.bashrc' 
 					sh 'terraform --version'
 					sh '/home/tomcat/bin/oci --version'
 					//sh '/root/bin/oci --version'
