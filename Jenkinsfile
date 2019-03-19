@@ -88,7 +88,7 @@ pipeline {
 					sh(script: "terraform init -input=false", returnStdout: true)
 					//sh 'terraform init -input=false -backend-config="address=${TF_VAR_terraform_state_url}"'
 					//sh 'terraform plan -out myplan'
-					sh(script: "terraform plan -out myplan", returnStdout: true)
+					sh(script: "terraform plan", returnStdout: true)
 				}
 			}
 		}
