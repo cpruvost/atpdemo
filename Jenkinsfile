@@ -84,7 +84,7 @@ pipeline {
 							message: 'Let\'s continue the deploy plan',
 							type: "boolean")
 							
-						sh 'terraform apply "myplan" -auto-approve'
+						sh 'terraform apply -auto-approve "myplan"'
 					}
 				}
 			}
