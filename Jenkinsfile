@@ -63,7 +63,8 @@ pipeline {
 				
 				dir ('./tf/modules/atp') {
 					script {
-						sh '/usr/local/bin/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
+						//sh '/usr/local/bin/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
+						sh '/opt/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
 						env.TF_VAR_private_key_path = './bmcs_api_key.pem'
 						sh 'ls'
 						sh 'cat ./bmcs_api_key.pem'
