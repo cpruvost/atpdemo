@@ -80,7 +80,10 @@ pipeline {
             steps {
 				dir ('./tf/modules/atp') {
 					sh 'ls'
-					sh 'terraform init -input=false -backend-config="address=${TF_VAR_terraform_state_url}"'
+					//Bugg Remote backend
+					sh 'mv ./backend.tf ./backend.tf.donotuse'
+					sh 'terraform init -input=false'
+					//sh 'terraform init -input=false -backend-config="address=${TF_VAR_terraform_state_url}"'
 					sh 'terraform plan -out myplan'
 				}
 			}
