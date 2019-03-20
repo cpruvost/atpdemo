@@ -30,6 +30,10 @@ pipeline {
 		TF_VAR_database_password = "${params.DATABASE_PASSWORD}"
 		TF_CLI_ARGS = "-no-color"
 		TF_VAR_terraform_state_url = "${params.TERRAFORM_STATE_URL}"
+		
+		//Update env variables for sqlcl oci option. You can improve that.
+		TNS_ADMIN = "./"
+        LD_LIBRARY_PATH = "/opt/instantclient_18_5"
 	}
 	
     stages {
@@ -46,8 +50,8 @@ pipeline {
 					//paths with jenkins host.
 					sh '/home/tomcat/bin/oci --version'
 					sh '/usr/local/bin/vault --version'
-					sh 'echo "show version" > show_version.sql'
-					sh 'exit | /opt/sqlcl/bin/sql /nolog @./show_version.sql'
+					//sh 'echo "show version" > show_version.sql'
+					sh 'exit | /opt/sqlcl/bin/sql /nolog @./sql/show_version.sql'
 					
 					//paths with docker image. 
 					//sh '/root/bin/oci --version'
@@ -179,6 +183,17 @@ pipeline {
                     sh 'pwd'
                     sh 'cp ../tf/modules/atp/myatpwallet.zip ./'
 					sh 'unzip ./myatpwallet.zip'
+					sh 'ls'
+					//Prepare sqlcl oci option
+					sh 'echo $TNS_ADMIN'
+					sh 'rm -rf ./sqlnet.ora'
+					sh 'mv ./sqlnet.ora.ref ./sqlnet.ora'
+					sh 'cat ./tnsnames.ora'
+                    sh 'cat ./sqlnet.ora'
+					//Check Connection to Atp
+					sh 'exit | /opt/sqlcl/bin/sql -oci admin/${TF_VAR_database_password}@atpdb_HIGH @./show_version.sql'
+					//Create schema in Atp
+					sh 'exit | /opt/sqlcl/bin/sql -oci admin/${TF_VAR_database_password}@atpdb_HIGH @./create_schema.sql'
                 }
             }
         }
