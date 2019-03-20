@@ -172,5 +172,16 @@ pipeline {
 				}
 			}
 		}
+		
+		stage('Create Schema in Atp') {
+            steps {
+                dir ('./sql') {
+                    sh 'pwd'
+                    sh 'cp ../tf/modules/atp/myatpwallet.zip ./'
+					sh 'unzip ./myatpwallet.zip'
+                }
+            }
+        }
+		
 	}	
 }
