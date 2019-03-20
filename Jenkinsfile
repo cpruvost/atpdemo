@@ -57,6 +57,7 @@ pipeline {
 					
 					sh 'curl --version'
 					sh 'jq --version'
+					sh 'docker --version'
 				
 					//Get all cloud information needed from Hachicorp Vault.
 					env.DATA =  sh returnStdout: true, script: 'curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data'
@@ -149,15 +150,21 @@ pipeline {
 						
 						script {
 							if (env.CHECK_DB == "1") {
-								sh '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name=Demo_InfraAsCode_ATW | jq .data[0].id | cut -d \'"\' -f 2 > result.test'	
-								env.DB_OCID = sh (script: 'cat ./result.test', returnStdout: true).trim()
+								echo "Db Already Exists"
+								//sh '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name=Demo_InfraAsCode_ATW | jq .data[0].id | cut -d \'"\' -f 2 > result.test'	
+								//env.DB_OCID = sh (script: 'cat ./result.test', returnStdout: true).trim()
 								//Get atp wallet
-								sh '/home/tomcat/bin/oci db autonomous-database generate-wallet --autonomous-database-id=${DB_OCID} --password=${TF_VAR_database_password} --file=./myatpwallet.zip'
+								//sh '/home/tomcat/bin/oci db autonomous-database generate-wallet --autonomous-database-id=${DB_OCID} --password=${TF_VAR_database_password} --file=./myatpwallet.zip'
 							}
 							else {
 								echo "Go Create Db"
 								sh '/home/tomcat/bin/oci db autonomous-database create --admin-password=${TF_VAR_database_password} --compartment-id=${TF_VAR_compartment_ocid} --cpu-core-count=1 --data-storage-size-in-tbs=1 --db-name=${TF_VAR_autonomous_database_db_name} --display-name=Demo_InfraAsCode_ATW --license-model=BRING_YOUR_OWN_LICENSE --wait-for-state=AVAILABLE'
 							}
+							
+							//Get atp wallet
+							sh '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name=Demo_InfraAsCode_ATW | jq .data[0].id | cut -d \'"\' -f 2 > result.test'	
+							env.DB_OCID = sh (script: 'cat ./result.test', returnStdout: true).trim()
+							sh '/home/tomcat/bin/oci db autonomous-database generate-wallet --autonomous-database-id=${DB_OCID} --password=${TF_VAR_database_password} --file=./myatpwallet.zip'
 						}
 						
 						sh 'ls'
@@ -165,5 +172,28 @@ pipeline {
 				}
 			}
 		}
+		
+		stage('Create Schema in Atp') {
+            steps {
+                dir ('./sql') {
+                    sh 'pwd'
+					sh 'cp ../tf/modules/atp/myatpwallet.zip ./'
+					sh 'ls'
+					sh 'unzip -o myatpwallet.zip'
+					
+                    
+                    /*sh 'echo $TNS_ADMIN' 
+                    sh 'wget https://objectstorage.eu-frankfurt-1.oraclecloud.com/n/oraseemeafrtech1/b/AtpDemo/o/Wallet_DB201903141012.zip'
+                    sh 'unzip -o Wallet_DB201903141012.zip'
+                    sh 'ls'
+                    sh 'rm -rf ./sqlnet.ora'
+                    sh 'wget https://objectstorage.eu-frankfurt-1.oraclecloud.com/n/oraseemeafrtech1/b/AtpDemo/o/sqlnet.ora'
+                    sh 'cat ./tnsnames.ora'
+                    sh 'cat ./sqlnet.ora'
+                    sh 'exit | /opt/sqlcl/bin/sql -oci admin/AlphA_2014_!@db201903141012_high @./show_version.sql'
+                    sh 'wget https://objectstorage.eu-frankfurt-1.oraclecloud.com/n/oraseemeafrtech1/b/AtpDemo/o/create_schema.sql'
+                    sh 'exit | /opt/sqlcl/bin/sql -oci admin/AlphA_2014_!@db201903141012_high @./create_schema.sql'*/
+                }
+            }
 	}	
 }
