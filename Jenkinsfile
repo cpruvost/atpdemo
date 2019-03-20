@@ -201,7 +201,7 @@ pipeline {
 								sh 'echo "Shema already exist"'
 							}
 							else {
-								sh 'echo "Go Create Shema"')
+								sh 'echo "Go Create Shema"'
 								sh 'exit | /opt/sqlcl/bin/sql -oci admin/${TF_VAR_database_password}@atpdb_HIGH @./create_schema.sql'
 								sh 'exit | /opt/sqlcl/bin/sql -oci admin/${TF_VAR_database_password}@atpdb_HIGH @./create_tables.sql'
 							}
