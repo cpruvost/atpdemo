@@ -107,6 +107,15 @@ pipeline {
 						//Bugg terraform oci so replace by OciCli for the moment	
 						//sh 'terraform apply -input=false -auto-approve "myplan"'
 						
+						sh 'rm -rf /home/tomcat/.oci/config'
+						sh 'echo "[DEFAULT]" > /home/tomcat/.oci/config'
+						sh 'echo "user=${TF_VAR_user_ocid}" >> /home/tomcat/.oci/config'
+						sh 'echo "fingerprint=${TF_VAR_fingerprint}" >> /home/tomcat/.oci/config'
+						sh 'echo "key_file=./bmcs_api_key.pem" >> /home/tomcat/.oci/config'
+						sh 'echo "tenancy=${TF_VAR_tenancy_ocid}" >> /home/tomcat/.oci/config'
+						sh 'echo "region=${TF_VAR_region}" >> /home/tomcat/.oci/config'
+						sh 'cat /home/tomcat/.oci/config'
+						
 						sh '/home/tomcat/bin/oci db autonomous-database create --admin-password=AlphA_2014_! --compartment-id=${TF_VAR_compartment_ocid} --cpu-core-count=2 --data-storage-size-in-tbs=1 --db-name=AutoDbDevOps --display-name=Demo_InfraAsCode_ADW --license-model=BRING_YOUR_OWN_LICENSE --wait-for-state=AVAILABLE'
 					}
 				}
