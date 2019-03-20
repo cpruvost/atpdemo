@@ -148,14 +148,14 @@ pipeline {
 						sh '/home/tomcat/bin/oci setup repair-file-permissions --file /home/tomcat/.oci/config'
 						
 						//Check if Db is already there
-						sh '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name=Demo_InfraAsCode_ATW | jq ". | length" > result.test'	
+						sh '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name=Demo_InfraAsCode_ATW --lifecycle-state=AVAILABLE | jq ". | length" > result.test'	
 						env.CHECK_DB = sh (script: 'cat ./result.test', returnStdout: true).trim()
 						sh 'echo ${CHECK_DB}'
 						
 						script {
 							if (env.CHECK_DB == "1") {
 								echo "Db Already Exists"
-								//sh '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name=Demo_InfraAsCode_ATW | jq .data[0].id | cut -d \'"\' -f 2 > result.test'	
+								//sh '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name=Demo_InfraAsCode_ATW --lifecycle-state=AVAILABLE | jq .data[0].id | cut -d \'"\' -f 2 > result.test'	
 								//env.DB_OCID = sh (script: 'cat ./result.test', returnStdout: true).trim()
 								//Get atp wallet
 								//sh '/home/tomcat/bin/oci db autonomous-database generate-wallet --autonomous-database-id=${DB_OCID} --password=${TF_VAR_database_password} --file=./myatpwallet.zip'
