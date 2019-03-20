@@ -196,7 +196,7 @@ pipeline {
 					sh 'exit | /opt/sqlcl/bin/sql -oci admin/${TF_VAR_database_password}@atpdb_HIGH @./check_schema.sql'
 					sh 'ls'
 					sh 'cat ./result.test'
-					sh (script: 'cat ./result.test', returnStdout: true)
+					sh (script: 'cat ./result.test', returnStdout: true).trim()
                 }
             }
         }
