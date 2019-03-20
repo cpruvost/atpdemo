@@ -51,8 +51,8 @@ pipeline {
 					//sh '/root/bin/oci --version'
 					//sh '/opt/vault --version'
 					
-					//sh 'curl --version'
-					sq 'jq --version'
+					sh 'curl --version'
+					sh 'jq --version'
 					
 					//sh 'echo "show version" > show_version.sql'
 					//sh 'exit | /opt/sqlcl/bin/sql /nolog @./show_version.sql'
