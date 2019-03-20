@@ -195,8 +195,8 @@ pipeline {
 					//Create schema in Atp
 					sh 'exit | /opt/sqlcl/bin/sql -oci admin/${TF_VAR_database_password}@atpdb_HIGH @./check_schema.sql'
 					sh 'ls'
-					/*env.CHECK_SCHEMA = sh (script: 'cat ./output.csv', returnStdout: true).trim()
-					script {
+					env.CHECK_SCHEMA = sh (script: 'cat ./output.csv', returnStdout: true).trim()
+					/*script {
 							if (env.CHECK_SCHEMA == "1") {
 								sh 'echo "Shema already exist"'
 							}
