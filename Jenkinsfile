@@ -35,7 +35,7 @@ pipeline {
 					sh 'pwd'
 					//sh 'source ~/.bashrc' 
 					sh 'terraform --version'
-					//sh '/home/tomcat/bin/oci --version'
+					sh '/home/tomcat/bin/oci --version'
 					//sh '/root/bin/oci --version'
 					sh '/usr/local/bin/vault --version'
 					//sh 'vault --version'
@@ -104,15 +104,10 @@ pipeline {
 							message: 'Let\'s continue the deploy plan',
 							type: "boolean")
 							
-						sh 'terraform apply -input=false -auto-approve "myplan"'
+						//Bugg terraform oci so replace by OciCli for the moment	
+						//sh 'terraform apply -input=false -auto-approve "myplan"'
 						
-						/*sh '''#!/bin/bash
-
-						echo "Who I'm $SHELL"
-						terraform apply -input=false -auto-approve "myplan"
-						'''*/
-						
-						//sh(script: "terraform apply -input=false -auto-approve myplan", returnStdout: true)
+						sh '/home/tomcat/bin/oci db autonomous-database create --admin-password=AlphA_2014_! --compartment-id=${TF_VAR_compartment_ocid} --cpu-core-count=2 --data-storage-size-in-tbs=1 --db-name=AutoDbDevOps --display-name=Demo_InfraAsCode_ADW --license-model=BRING_YOUR_OWN_LICENSE --wait-for-state=AVAILABLE'
 					}
 				}
 			}
