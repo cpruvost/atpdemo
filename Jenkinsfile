@@ -172,28 +172,5 @@ pipeline {
 				}
 			}
 		}
-		
-		stage('Create Schema in Atp') {
-            steps {
-                dir ('./sql') {
-                    sh 'pwd'
-					sh 'cp ../tf/modules/atp/myatpwallet.zip ./'
-					sh 'ls'
-					sh 'unzip -o myatpwallet.zip'
-					
-                    
-                    /*sh 'echo $TNS_ADMIN' 
-                    sh 'wget https://objectstorage.eu-frankfurt-1.oraclecloud.com/n/oraseemeafrtech1/b/AtpDemo/o/Wallet_DB201903141012.zip'
-                    sh 'unzip -o Wallet_DB201903141012.zip'
-                    sh 'ls'
-                    sh 'rm -rf ./sqlnet.ora'
-                    sh 'wget https://objectstorage.eu-frankfurt-1.oraclecloud.com/n/oraseemeafrtech1/b/AtpDemo/o/sqlnet.ora'
-                    sh 'cat ./tnsnames.ora'
-                    sh 'cat ./sqlnet.ora'
-                    sh 'exit | /opt/sqlcl/bin/sql -oci admin/AlphA_2014_!@db201903141012_high @./show_version.sql'
-                    sh 'wget https://objectstorage.eu-frankfurt-1.oraclecloud.com/n/oraseemeafrtech1/b/AtpDemo/o/create_schema.sql'
-                    sh 'exit | /opt/sqlcl/bin/sql -oci admin/AlphA_2014_!@db201903141012_high @./create_schema.sql'*/
-                }
-            }
 	}	
 }
