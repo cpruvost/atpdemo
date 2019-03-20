@@ -1,6 +1,8 @@
 pipeline {
+	//agent by default
 	agent any
 	
+	//use a docker image instead of the jenkins host
 	/*agent {
         docker { 
             image 'cpruvost/devops:latest'
@@ -8,6 +10,7 @@ pipeline {
         }
     }*/
 	
+	//Parameters of the pipeline. You can define more parameters in this pipeline in order to have less hard code variables.
 	parameters {
         password(defaultValue: "WdPdcgUA1XNy23MoiR8uuOWu", description: 'What is the vault token ?', name: 'VAULT_TOKEN')
 		string(defaultValue: "130.61.125.123", description: 'What is the vault server IP Address ?', name: 'VAULT_SERVER_IP')
@@ -17,6 +20,7 @@ pipeline {
 		string(defaultValue: "https://objectstorage.eu-frankfurt-1.oraclecloud.com/p/avJQClo6ZzbMBxkSBNfvXhkYdE8kSy2IEipcDViiBmI/n/oraseemeafrtech1/b/AtpDemo/o/terraform.tfstate", description: 'Where is stored the terraform state ?', name: 'TERRAFORM_STATE_URL')  
     }
 	
+	//Load the parameters as environment variables
 	environment {
 		VAULT_TOKEN = "${params.VAULT_TOKEN}"
 		VAULT_SERVER_IP = "${params.VAULT_SERVER_IP}"
@@ -29,23 +33,31 @@ pipeline {
 	}
 	
     stages {
+		//Check that our tools for pipeline are all there. Note that Jenkins uses sh and that we lost some alias of bash. You can improve that point.
         stage('Init Atp Variables') {
             steps {
 			
 				script {
 					sh 'whoami'
 					sh 'pwd'
-					//sh 'source ~/.bashrc' 
+					
 					sh 'terraform --version'
+					
+					//paths with jenkins host.
 					sh '/home/tomcat/bin/oci --version'
-					//sh '/root/bin/oci --version'
 					sh '/usr/local/bin/vault --version'
-					//sh 'vault --version'
+					
+					//paths with docker image. 
+					//sh '/root/bin/oci --version'
 					//sh '/opt/vault --version'
+					
 					sh 'curl --version'
+					sq 'jq --version'
+					
 					//sh 'echo "show version" > show_version.sql'
 					//sh 'exit | /opt/sqlcl/bin/sql /nolog @./show_version.sql'
 				
+					//Get all cloud information needed from Hachicorp Vault.
 					env.DATA =  sh returnStdout: true, script: 'curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data'
 					env.TF_VAR_tenancy_ocid = sh returnStdout: true, script: 'echo ${DATA}  | jq .tenancy_ocid | cut -d \'"\' -f 2'
 					env.TF_VAR_user_ocid = sh returnStdout: true, script: 'echo ${DATA}  | jq .user_ocid | cut -d \'"\' -f 2'
@@ -69,10 +81,16 @@ pipeline {
 				
 				dir ('./tf/modules/atp') {
 					script {
+						//Get the API key File with vault client because curl breaks the end line of the key file
+						
+						//paths with jenkins host.
 						sh '/usr/local/bin/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
-						//sh 'vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
+						
+						//paths with docker.
 						//sh '/opt/vault kv get -field=api_private_key secret/demoatp | tr -d "\n" | base64 --decode > bmcs_api_key.pem'
+						
 						env.TF_VAR_private_key_path = './bmcs_api_key.pem'
+						
 						sh 'ls'
 						sh 'cat ./bmcs_api_key.pem'
 					}
@@ -86,13 +104,12 @@ pipeline {
             steps {
 				dir ('./tf/modules/atp') {
 					sh 'ls'
-					//Bugg Remote backend
-					//sh 'mv ./backend.tf ./backend.tf.donotuse'
-					sh 'terraform init -input=false'
-					//sh(script: "terraform init -input=false", returnStdout: true)
-					//sh 'terraform init -input=false -backend-config="address=${TF_VAR_terraform_state_url}"'
+					
+					//Terraform initialization in order to get oci plugin provider	
+					sh 'terraform init -input=false -backend-config="address=${TF_VAR_terraform_state_url}"'
+					
+					//Terraform plan
 					sh 'terraform plan -out myplan'
-					//sh(script: "terraform plan", returnStdout: true)
 				}
 			}
 		}
