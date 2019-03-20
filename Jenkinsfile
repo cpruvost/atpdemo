@@ -198,10 +198,10 @@ pipeline {
 					env.CHECK_SCHEMA = sh (script: 'cat ./output.csv', returnStdout: true).trim()
 					script {
 							if (env.CHECK_SCHEMA == "1") {
-								sh 'echo "Shema already exist')
+								sh 'echo "Shema already exist"')
 							}
 							else {
-								sh 'echo "Go Create Shema')
+								sh 'echo "Go Create Shema"')
 								sh 'exit | /opt/sqlcl/bin/sql -oci admin/${TF_VAR_database_password}@atpdb_HIGH @./create_schema.sql'
 								sh 'exit | /opt/sqlcl/bin/sql -oci admin/${TF_VAR_database_password}@atpdb_HIGH @./create_tables.sql'
 							}
