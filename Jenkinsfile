@@ -122,7 +122,8 @@ pipeline {
 						sh '/home/tomcat/bin/oci setup repair-file-permissions --file /home/tomcat/.oci/config'
 						
 						//Check if Db is already there
-						sh '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name=Demo_InfraAsCode_ADW | jq ". | length"'	
+						sh '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name=Demo_InfraAsCode_ADW | jq ". | length" > result.test'	
+						sh 'cat ./result.test'
 						
 						/*script {
 							if (${CHECK_DB} == 1) {
