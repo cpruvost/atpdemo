@@ -33,7 +33,6 @@ pipeline {
 	}
 	
     stages {
-		//Check that our tools for pipeline are all there. Note that Jenkins uses sh and that we lost some alias of bash. You can improve that point.
         stage('Init Atp Variables') {
             steps {
 			
@@ -41,21 +40,23 @@ pipeline {
 					sh 'whoami'
 					sh 'pwd'
 					
+					//Check that our tools for pipeline are all there. Note that Jenkins uses sh and that we lost some alias of bash. You can improve that point.
 					sh 'terraform --version'
 					
 					//paths with jenkins host.
 					sh '/home/tomcat/bin/oci --version'
 					sh '/usr/local/bin/vault --version'
+					sh 'echo "show version" > show_version.sql'
+					sh 'exit | /opt/sqlcl/bin/sql /nolog @./show_version.sql'
 					
 					//paths with docker image. 
 					//sh '/root/bin/oci --version'
 					//sh '/opt/vault --version'
+					//sh 'echo "show version" > show_version.sql'
+					//sh 'exit | /opt/sqlcl/bin/sql /nolog @./show_version.sql'
 					
 					sh 'curl --version'
 					sh 'jq --version'
-					
-					//sh 'echo "show version" > show_version.sql'
-					//sh 'exit | /opt/sqlcl/bin/sql /nolog @./show_version.sql'
 				
 					//Get all cloud information needed from Hachicorp Vault.
 					env.DATA =  sh returnStdout: true, script: 'curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data'
@@ -155,7 +156,7 @@ pipeline {
 							}
 							else {
 								echo "Go Create Db"
-								sh '/home/tomcat/bin/oci db autonomous-database create --admin-password=${TF_VAR_database_password} --compartment-id=${TF_VAR_compartment_ocid} --cpu-core-count=2 --data-storage-size-in-tbs=1 --db-name=${TF_VAR_autonomous_database_db_name} --display-name=Demo_InfraAsCode_ATW --license-model=BRING_YOUR_OWN_LICENSE --wait-for-state=AVAILABLE'
+								sh '/home/tomcat/bin/oci db autonomous-database create --admin-password=${TF_VAR_database_password} --compartment-id=${TF_VAR_compartment_ocid} --cpu-core-count=1 --data-storage-size-in-tbs=1 --db-name=${TF_VAR_autonomous_database_db_name} --display-name=Demo_InfraAsCode_ATW --license-model=BRING_YOUR_OWN_LICENSE --wait-for-state=AVAILABLE'
 							}
 						}
 						
