@@ -128,7 +128,7 @@ pipeline {
 						
 						script {
 							if (env.CHECK_DB == "1") {
-								sh '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name=Demo_InfraAsCode_ADW | jq .data[0].id > result.test'	
+								sh '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name=Demo_InfraAsCode_ADW | jq .data[0].id | cut -d \'"\' -f 2 > result.test'	
 								env.DB_OCID = sh (script: 'cat ./result.test', returnStdout: true).trim()
 								sh '/home/tomcat/bin/oci db autonomous-database generate-wallet --autonomous-database-id=${DB_OCID} --password=${DATABASE_PASSWORD} --file=./myatpwallet.zip'
 							}
