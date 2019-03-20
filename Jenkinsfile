@@ -123,7 +123,7 @@ pipeline {
 						
 						//Check if Db is already there
 						CHECK_DB=sh (
-							script : '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name="Demo_InfraAsCode_ADW" | jq \". | length\"',
+							script : '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name=\"Demo_InfraAsCode_ADW\" | jq \". | length\"',
 							returnStdout: true
 						).trim()
 						
