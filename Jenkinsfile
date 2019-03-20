@@ -127,7 +127,7 @@ pipeline {
 						sh 'echo ${CHECK_DB}'
 						
 						script {
-							if (${CHECK_DB} == 1) {
+							if (env.CHECK_DB == 1) {
 								echo "Db Already Exists"
 							}
 							else {
