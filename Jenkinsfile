@@ -119,7 +119,7 @@ pipeline {
 						sh 'cat /home/tomcat/.oci/config'
 						
 						//Check if Db is already there
-						sh 'oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name="Demo_InfraAsCode_ADW" | jq \". | length\"'
+						sh '/home/tomcat/bin/oci oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name="Demo_InfraAsCode_ADW" | jq \". | length\"'
 						
 						//sh '/home/tomcat/bin/oci db autonomous-database create --admin-password=${TF_VAR_database_password} --compartment-id=${TF_VAR_compartment_ocid} --cpu-core-count=2 --data-storage-size-in-tbs=1 --db-name=${TF_VAR_autonomous_database_db_name} --display-name=demo_autonomous_database --license-model=BRING_YOUR_OWN_LICENSE --wait-for-state=AVAILABLE'
 					}
