@@ -162,7 +162,7 @@ pipeline {
 							}
 							else {
 								echo "Go Create Db"
-								sh '/home/tomcat/bin/oci db autonomous-database create --admin-password=${TF_VAR_database_password} --compartment-id=${TF_VAR_compartment_ocid} --cpu-core-count=1 --data-storage-size-in-tbs=1 --db-name=${TF_VAR_autonomous_database_db_name} --display-name=Demo_InfraAsCode_ATW --license-model=BRING_YOUR_OWN_LICENSE --wait-for-state=AVAILABLE'
+								sh '/home/tomcat/bin/oci db autonomous-database create --admin-password=${TF_VAR_database_password} --compartment-id=${TF_VAR_compartment_ocid} --cpu-core-count=2 --data-storage-size-in-tbs=1 --db-name=${TF_VAR_autonomous_database_db_name} --display-name=Demo_InfraAsCode_ATW --license-model=BRING_YOUR_OWN_LICENSE --wait-for-state=AVAILABLE'
 							}
 							
 							//Get atp wallet
