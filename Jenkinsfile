@@ -51,6 +51,7 @@ pipeline {
 					//sh '/root/bin/oci --version'
 					//sh '/opt/vault --version'
 					
+					//sh 'curl --version'
 					sq 'jq --version'
 					
 					//sh 'echo "show version" > show_version.sql'
