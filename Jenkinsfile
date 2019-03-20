@@ -12,7 +12,8 @@ pipeline {
         password(defaultValue: "WdPdcgUA1XNy23MoiR8uuOWu", description: 'What is the vault token ?', name: 'VAULT_TOKEN')
 		string(defaultValue: "130.61.125.123", description: 'What is the vault server IP Address ?', name: 'VAULT_SERVER_IP')
 		string(defaultValue: "demoatp", description: 'What is the vault secret name ?', name: 'VAULT_SECRET_NAME')  
-		string(defaultValue: "atpdb", description: 'What is the database name ?', name: 'DATABASE_NAME')  
+		string(defaultValue: "atpdb", description: 'What is the database name ?', name: 'DATABASE_NAME') 
+		password(defaultValue: "AlphA_2014_!", description: 'What is the database password ?', name: 'DATABASE_PASSWORD')  		
 		string(defaultValue: "https://objectstorage.eu-frankfurt-1.oraclecloud.com/p/avJQClo6ZzbMBxkSBNfvXhkYdE8kSy2IEipcDViiBmI/n/oraseemeafrtech1/b/AtpDemo/o/terraform.tfstate", description: 'Where is stored the terraform state ?', name: 'TERRAFORM_STATE_URL')  
     }
 	
@@ -22,6 +23,7 @@ pipeline {
 		VAULT_ADDR = "http://${params.VAULT_SERVER_IP}:8200"
 		VAULT_SECRET_NAME = "${params.VAULT_SECRET_NAME}"
 		TF_VAR_autonomous_database_db_name = "${params.DATABASE_NAME}"
+		TF_VAR_database_password = "${params.DATABASE_PASSWORD}"
 		TF_CLI_ARGS = "-no-color"
 		TF_VAR_terraform_state_url = "${params.TERRAFORM_STATE_URL}"
 	}
@@ -116,7 +118,10 @@ pipeline {
 						sh 'echo "region=${TF_VAR_region}" >> /home/tomcat/.oci/config'
 						sh 'cat /home/tomcat/.oci/config'
 						
-						sh '/home/tomcat/bin/oci db autonomous-database create --admin-password=AlphA_2014_! --compartment-id=${TF_VAR_compartment_ocid} --cpu-core-count=2 --data-storage-size-in-tbs=1 --db-name=AutoDbDevOps --display-name=Demo_InfraAsCode_ADW --license-model=BRING_YOUR_OWN_LICENSE --wait-for-state=AVAILABLE'
+						//Check if Db is already there
+						sh 'oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name="Demo_InfraAsCode_ADW" | jq \". | length\"'
+						
+						//sh '/home/tomcat/bin/oci db autonomous-database create --admin-password=${TF_VAR_database_password} --compartment-id=${TF_VAR_compartment_ocid} --cpu-core-count=2 --data-storage-size-in-tbs=1 --db-name=${TF_VAR_autonomous_database_db_name} --display-name=demo_autonomous_database --license-model=BRING_YOUR_OWN_LICENSE --wait-for-state=AVAILABLE'
 					}
 				}
 			}
