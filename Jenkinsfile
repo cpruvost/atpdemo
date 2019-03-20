@@ -119,6 +119,7 @@ pipeline {
 						sh 'cat /home/tomcat/.oci/config'
 						
 						sh '/home/tomcat/bin/oci setup repair-file-permissions --file ./bmcs_api_key.pem'
+						sh '/home/tomcat/bin/oci setup repair-file-permissions --file /home/tomcat/.oci/config'
 						
 						//Check if Db is already there
 						CHECK_DB=sh (
