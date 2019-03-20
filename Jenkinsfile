@@ -198,7 +198,7 @@ pipeline {
 					env.CHECK_SCHEMA = sh (script: 'cat ./output.csv', returnStdout: true).trim()
 					script {
 							if (env.CHECK_SCHEMA == "1") {
-								sh 'echo "Shema already exist"')
+								sh 'echo "Shema already exist"'
 							}
 							else {
 								sh 'echo "Go Create Shema"')
