@@ -118,6 +118,8 @@ pipeline {
 						sh 'echo "region=${TF_VAR_region}" >> /home/tomcat/.oci/config'
 						sh 'cat /home/tomcat/.oci/config'
 						
+						sh '/home/tomcat/bin/oci setup repair-file-permissions --file ./bmcs_api_key.pem'
+						
 						//Check if Db is already there
 						CHECK_DB=sh (
 							script : '/home/tomcat/bin/oci db autonomous-database list --compartment-id=${TF_VAR_compartment_ocid} --display-name="Demo_InfraAsCode_ADW" | jq \". | length\"',
