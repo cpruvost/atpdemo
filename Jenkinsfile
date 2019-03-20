@@ -193,7 +193,9 @@ pipeline {
 					//Check Connection to Atp
 					sh 'exit | /opt/sqlcl/bin/sql -oci admin/${TF_VAR_database_password}@atpdb_HIGH @./show_version.sql'
 					//Create schema in Atp
-					sh 'exit | /opt/sqlcl/bin/sql -oci admin/${TF_VAR_database_password}@atpdb_HIGH @./create_schema.sql'
+					sh 'exit | /opt/sqlcl/bin/sql -oci admin/${TF_VAR_database_password}@atpdb_HIGH @./create_schema.sql >> result.test'
+					env.CHECK_TABLES = sh (script: 'cat ./result.test', returnStdout: true).trim()
+					sh 'echo ${CHECK_TABLES}'
                 }
             }
         }
