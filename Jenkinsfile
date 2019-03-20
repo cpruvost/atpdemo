@@ -182,7 +182,7 @@ pipeline {
                 dir ('./sql') {
                     sh 'pwd'
                     sh 'cp ../tf/modules/atp/myatpwallet.zip ./'
-					sh 'unzip ./myatpwallet.zip'
+					sh 'unzip -o ./myatpwallet.zip'
 					sh 'ls'
 					//Prepare sqlcl oci option
 					sh 'echo $TNS_ADMIN'
