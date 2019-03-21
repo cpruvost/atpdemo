@@ -34,7 +34,6 @@ If you don't do the workshop with Oracle then you can do a [Trial](https://cloud
 - The [OCI Command Line Interface](https://github.com/oracle/oci-cli) or OCI CLI. The fastest way to get the latest version on Mac/Linux, assuming you have `python` or `python3` installed with `pip`, is to run `sudo pip install oci-cli`.
 - [Oracle SQLcl](https://www.oracle.com/technetwork/developer-tools/sqlcl/overview/index.html), that replaces the old SQL*Plus in 12c. We need to have Oracle Instant Client installed too if you want to use a sqlcl oci connection to Atp.
 - [Git](https://git-scm.com/downloads)
-- [Vault](https://www.vaultproject.io/)
 - You might also need to install and use more tools, like `jq`, `ssh`, `openssl`, `curl`...
 
 5) You need [Oracle SQL Developer](https://www.oracle.com/database/technologies/appdev/sql-developer.html) to connect to Atp.
