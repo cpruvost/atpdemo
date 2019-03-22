@@ -268,8 +268,8 @@ pipeline {
 		stage('Docker Build Application Image') { 
             steps {
 				dir ('./docker') {
-					sh 'unzip -o ./containerscript.zip'
-					sh 'unzip -o ./properties.zip'
+					//sh 'unzip -o ./containerscript.zip'
+					//sh 'unzip -o ./properties.zip'
 					sh 'rm -rf ./container-scripts/autonomous_database_wallet.zip'
 					sh 'cp ../tf/modules/atp/myatpwallet.zip  ./container-scripts/autonomous_database_wallet.zip'
 					sh 'ls'
