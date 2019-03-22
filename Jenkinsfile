@@ -283,9 +283,9 @@ pipeline {
 					
 					sh 'cat ./container-scripts/datasource.properties.oracle.txt'
 					
-					//sh 'docker build -t cpruvost/12213-wls-medrec-if .'
-					//sh 'docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASSWORD}'
-					//sh 'docker push cpruvost/12213-wls-medrec-if' 
+					sh 'docker build -t cpruvost/12213-wls-medrec-if .'
+					sh 'docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASSWORD}'
+					sh 'docker push cpruvost/12213-wls-medrec-if' 
 				}
 			}
 		}
