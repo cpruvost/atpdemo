@@ -62,7 +62,7 @@ pipeline {
 					sh 'curl --version'
 					sh 'jq --version'
 					sh 'docker --version'
-					sh 'kubernetes version'
+					sh 'kubectl version'
 				
 					//Get all cloud information needed from Hachicorp Vault.
 					env.DATA =  sh returnStdout: true, script: 'curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data'
