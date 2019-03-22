@@ -274,12 +274,12 @@ pipeline {
 					sh 'cp ../tf/modules/atp/myatpwallet.zip  ./container-scripts/autonomous_database_wallet.zip'
 					sh 'ls'
 					
-					/*sh 'echo "dsdbname=${TF_VAR_autonomous_database_db_name}""_high" >> ./container-scripts/datasource.properties.oracle.txt'
+					sh 'echo "dsdbname=${TF_VAR_autonomous_database_db_name}""_high" >> ./container-scripts/datasource.properties.oracle.txt'
 					sh 'echo "dsurl=jdbc:oracle:thin:@${TF_VAR_autonomous_database_db_name}""_high" >> ./container-scripts/datasource.properties.oracle.txt'
 					sh 'echo "dsusername=medrec" >> ./container-scripts/datasource.properties.oracle.txt'
 					sh 'echo "dspassword=ATPwelcome1234" >> ./container-scripts/datasource.properties.oracle.txt'
 					sh 'echo "dskeystorepassword=${TF_VAR_database_password}" >> ./container-scripts/datasource.properties.oracle.txt'
-					sh 'echo "dstruestorepassword=${TF_VAR_database_password}" >> ./container-scripts/datasource.properties.oracle.txt'*/
+					sh 'echo "dstruestorepassword=${TF_VAR_database_password}" >> ./container-scripts/datasource.properties.oracle.txt'
 					
 					sh 'cat ./container-scripts/datasource.properties.oracle.txt'
 					
