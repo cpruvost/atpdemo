@@ -226,9 +226,11 @@ pipeline {
 					sh 'ls'
 					
 					//Terraform plan
-					script {
-						sh 'terraform plan -out myplan'
-					}	
+					//Terraform oci provider bugg with jenkins so just use an OKE Cluster created before. (same bugg as Atp). You can use OCI CLI too if you want.
+					//Error Message : * data.oci_identity_availability_domain.ad2: data.oci_identity_availability_domain.ad2: host is invalid. parse https://identity.eu-frankfurt-1.oraclecloud.com: invalid character "\n" in host name
+					//sh 'terraform plan -out myplan'
+					
+					sh 'cat ./myplan'	
 				}
 			}
 		}

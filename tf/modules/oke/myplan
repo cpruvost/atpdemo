@@ -1,0 +1,187 @@
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+data.oci_containerengine_node_pool_option.test_node_pool_option: Refreshing state...
+data.oci_containerengine_cluster_option.test_cluster_option: Refreshing state...
+data.oci_identity_availability_domain.ad2: Refreshing state...
+data.oci_identity_availability_domain.ad1: Refreshing state...
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+ <= read (data resources)
+
+Terraform will perform the following actions:
+
+ <= data.oci_containerengine_cluster_kube_config.test_cluster_kube_config
+      id:                                                  <computed>
+      cluster_id:                                          "${oci_containerengine_cluster.test_cluster.id}"
+      content:                                             <computed>
+      expiration:                                          "2592000"
+      token_version:                                       "1.0.0"
+
+  + local_file.test_cluster_kube_config_file
+      id:                                                  <computed>
+      content:                                             "${data.oci_containerengine_cluster_kube_config.test_cluster_kube_config.content}"
+      filename:                                            "C:\\Travail\\Travail2019\\Demos\\InfraAsCode\\terraform13032019\\docs\\examples\\container_engine/test_cluster_kubeconfig"
+
+  + oci_containerengine_cluster.test_cluster
+      id:                                                  <computed>
+      available_kubernetes_upgrades.#:                     <computed>
+      compartment_id:                                      "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+      endpoints.#:                                         <computed>
+      kubernetes_version:                                  "v1.10.11"
+      lifecycle_details:                                   <computed>
+      metadata.#:                                          <computed>
+      name:                                                "tfTestCluster"
+      options.#:                                           "1"
+      options.0.add_ons.#:                                 "1"
+      options.0.add_ons.0.is_kubernetes_dashboard_enabled: "true"
+      options.0.add_ons.0.is_tiller_enabled:               "true"
+      options.0.kubernetes_network_config.#:               "1"
+      options.0.kubernetes_network_config.0.pods_cidr:     "10.1.0.0/16"
+      options.0.kubernetes_network_config.0.services_cidr: "10.2.0.0/16"
+      options.0.service_lb_subnet_ids.#:                   <computed>
+      state:                                               <computed>
+      vcn_id:                                              "${oci_core_virtual_network.test_vcn.id}"
+
+  + oci_containerengine_node_pool.test_node_pool
+      id:                                                  <computed>
+      cluster_id:                                          "${oci_containerengine_cluster.test_cluster.id}"
+      compartment_id:                                      "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+      initial_node_labels.#:                               "1"
+      initial_node_labels.0.key:                           "key"
+      initial_node_labels.0.value:                         "value"
+      kubernetes_version:                                  "v1.10.11"
+      name:                                                "tfPool"
+      node_image_id:                                       <computed>
+      node_image_name:                                     "Oracle-Linux-7.4"
+      node_metadata.%:                                     <computed>
+      node_shape:                                          "VM.Standard2.1"
+      nodes.#:                                             <computed>
+      quantity_per_subnet:                                 "2"
+      ssh_public_key:                                      "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArn21PGy1SZ6AYFlztFUL1gv63EXMbSb4qo1SzPAwZgcQXjciU8YsettV81YIFzvIedEn4mhD8ebGKK1k8oYB7HYNsSywbXmqisI+75xY37EZT6ah+cxENmVxmzpOjOYH31wj792tf/WpUUpnN8MdIlTW8uAWNIa6Mz9YhAZ0sJILDOlSNr/rorrGYyYLBtJqbVAZlwEfUSgQTkMwBWK4L7aXOLMDFFAi2oEqsjmT3rWX55YzrwXIMvNXjslen6gXqrdoCeakKMbQ788fQqb1P9hgsmHhkERJfwhgFy+R1RUfPMHdZG7P2vNLUZDd54ROCmj2F852HkertpDMFNMWrQ== oracle@oraclelinux6.localdomain"
+      subnet_ids.#:                                        <computed>
+
+  + oci_core_internet_gateway.test_ig
+      id:                                                  <computed>
+      compartment_id:                                      "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+      display_name:                                        "tfClusterInternetGateway"
+      enabled:                                             "true"
+      freeform_tags.%:                                     <computed>
+      state:                                               <computed>
+      time_created:                                        <computed>
+      time_modified:                                       <computed>
+      vcn_id:                                              "${oci_core_virtual_network.test_vcn.id}"
+
+  + oci_core_route_table.test_route_table
+      id:                                                  <computed>
+      compartment_id:                                      "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+      display_name:                                        "tfClustersRouteTable"
+      freeform_tags.%:                                     <computed>
+      route_rules.#:                                       "1"
+      route_rules.~865964743.cidr_block:                   <computed>
+      route_rules.~865964743.destination:                  "0.0.0.0/0"
+      route_rules.~865964743.destination_type:             "CIDR_BLOCK"
+      route_rules.~865964743.network_entity_id:            "${oci_core_internet_gateway.test_ig.id}"
+      state:                                               <computed>
+      time_created:                                        <computed>
+      time_modified:                                       <computed>
+      vcn_id:                                              "${oci_core_virtual_network.test_vcn.id}"
+
+  + oci_core_subnet.clusterSubnet_1
+      id:                                                  <computed>
+      availability_domain:                                 "nkTJ:EU-FRANKFURT-1-AD-1"
+      cidr_block:                                          "10.0.20.0/24"
+      compartment_id:                                      "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+      dhcp_options_id:                                     <computed>
+      display_name:                                        "tfSubNet1ForClusters"
+      freeform_tags.%:                                     <computed>
+      prohibit_public_ip_on_vnic:                          <computed>
+      route_table_id:                                      "${oci_core_route_table.test_route_table.id}"
+      security_list_ids.#:                                 <computed>
+      state:                                               <computed>
+      subnet_domain_name:                                  <computed>
+      time_created:                                        <computed>
+      vcn_id:                                              "${oci_core_virtual_network.test_vcn.id}"
+      virtual_router_ip:                                   <computed>
+      virtual_router_mac:                                  <computed>
+
+  + oci_core_subnet.clusterSubnet_2
+      id:                                                  <computed>
+      availability_domain:                                 "nkTJ:EU-FRANKFURT-1-AD-2"
+      cidr_block:                                          "10.0.21.0/24"
+      compartment_id:                                      "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+      dhcp_options_id:                                     <computed>
+      display_name:                                        "tfSubNet1ForClusters"
+      freeform_tags.%:                                     <computed>
+      prohibit_public_ip_on_vnic:                          <computed>
+      route_table_id:                                      "${oci_core_route_table.test_route_table.id}"
+      security_list_ids.#:                                 <computed>
+      state:                                               <computed>
+      subnet_domain_name:                                  <computed>
+      time_created:                                        <computed>
+      vcn_id:                                              "${oci_core_virtual_network.test_vcn.id}"
+      virtual_router_ip:                                   <computed>
+      virtual_router_mac:                                  <computed>
+
+  + oci_core_subnet.nodePool_Subnet_1
+      id:                                                  <computed>
+      availability_domain:                                 "nkTJ:EU-FRANKFURT-1-AD-1"
+      cidr_block:                                          "10.0.22.0/24"
+      compartment_id:                                      "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+      dhcp_options_id:                                     <computed>
+      display_name:                                        "tfSubNet1ForNodePool"
+      freeform_tags.%:                                     <computed>
+      prohibit_public_ip_on_vnic:                          <computed>
+      route_table_id:                                      "${oci_core_route_table.test_route_table.id}"
+      security_list_ids.#:                                 <computed>
+      state:                                               <computed>
+      subnet_domain_name:                                  <computed>
+      time_created:                                        <computed>
+      vcn_id:                                              "${oci_core_virtual_network.test_vcn.id}"
+      virtual_router_ip:                                   <computed>
+      virtual_router_mac:                                  <computed>
+
+  + oci_core_subnet.nodePool_Subnet_2
+      id:                                                  <computed>
+      availability_domain:                                 "nkTJ:EU-FRANKFURT-1-AD-2"
+      cidr_block:                                          "10.0.23.0/24"
+      compartment_id:                                      "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+      dhcp_options_id:                                     <computed>
+      display_name:                                        "tfSubNet2ForNodePool"
+      freeform_tags.%:                                     <computed>
+      prohibit_public_ip_on_vnic:                          <computed>
+      route_table_id:                                      "${oci_core_route_table.test_route_table.id}"
+      security_list_ids.#:                                 <computed>
+      state:                                               <computed>
+      subnet_domain_name:                                  <computed>
+      time_created:                                        <computed>
+      vcn_id:                                              "${oci_core_virtual_network.test_vcn.id}"
+      virtual_router_ip:                                   <computed>
+      virtual_router_mac:                                  <computed>
+
+  + oci_core_virtual_network.test_vcn
+      id:                                                  <computed>
+      cidr_block:                                          "10.0.0.0/16"
+      compartment_id:                                      "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+      default_dhcp_options_id:                             <computed>
+      default_route_table_id:                              <computed>
+      default_security_list_id:                            <computed>
+      display_name:                                        "tfVcnForClusters"
+      freeform_tags.%:                                     <computed>
+      state:                                               <computed>
+      time_created:                                        <computed>
+      vcn_domain_name:                                     <computed>
+
+
+Plan: 10 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
