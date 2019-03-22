@@ -273,9 +273,9 @@ pipeline {
 					sh 'rm -rf ./container-scripts/autonomous_database_wallet.zip'
 					sh 'cp ../tf/modules/atp/myatpwallet.zip  ./container-scripts/autonomous_database_wallet.zip'
 					sh 'ls'
-					sh 'docker build -t cpruvost/12213-wls-medrec-if .'
-					sh 'docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASSWORD}'
-					sh 'docker push cpruvost/12213-wls-medrec-if' 
+					//sh 'docker build -t cpruvost/12213-wls-medrec-if .'
+					//sh 'docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASSWORD}'
+					//sh 'docker push cpruvost/12213-wls-medrec-if' 
 				}
 			}
 		}

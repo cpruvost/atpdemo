@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: medrec-service
+  labels:
+    app: medrec
+spec:
+  ports:
+  - port: 80
+    targetPort: 7001
+  selector:
+    app: medrec
+  type: LoadBalancer
