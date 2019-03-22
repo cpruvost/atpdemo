@@ -226,7 +226,9 @@ pipeline {
 					sh 'ls'
 					
 					//Terraform plan
-					sh 'terraform plan -out myplan'
+					script {
+						sh 'terraform plan -out myplan'
+					}	
 				}
 			}
 		}
