@@ -273,9 +273,7 @@ pipeline {
 					sh 'rm -rf ./container-scripts/autonomous_database_wallet.zip'
 					sh 'cp ../tf/modules/atp/myatpwallet.zip  ./container-scripts/autonomous_database_wallet.zip'
 					sh 'ls'
-					script {
-						env.DB_SERVICE_NAME=$TF_VAR_autonomous_database_db_name
-					}
+					
 					sh 'echo "dsdbname=$TF_VAR_autonomous_database_db_name""_high"' >> ./container-scripts/datasource.properties.oracle.txt
 					sh 'echo "dsurl=jdbc:oracle:thin:@$TF_VAR_autonomous_database_db_name""_high"' >> ./container-scripts/datasource.properties.oracle.txt
 					sh 'echo "user=medrec"' >> ./container-scripts/datasource.properties.oracle.txt
