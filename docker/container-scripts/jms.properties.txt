@@ -1,0 +1,8 @@
+jmsserver=MedRecJMSServer
+jmsresource=Medrec-jms
+jmsqueue=PatientNotificationQueue
+jmsjndiqueue=com.oracle.medrec.jms.PatientNotificationQueue
+jmssubdeployment=PNQSubDeployment
+jmsconnfactory=MedRecConnectionFactory
+jmsjndiconnfactory=com.oracle.medrec.jms.connectionFactory
+wlsserver=admin-server
