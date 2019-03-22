@@ -73,6 +73,8 @@ pipeline {
 					env.TF_VAR_ssh_public_key = sh returnStdout: true, script: 'echo ${DATA}  | jq .ssh_public_key | cut -d \'"\' -f 2'
 					env.TF_VAR_ssh_private_key = sh returnStdout: true, script: 'echo ${DATA}  | jq .ssh_private_key | cut -d \'"\' -f 2'
 					env.TF_VAR_region = sh returnStdout: true, script: 'echo ${DATA}  | jq .region | cut -d \'"\' -f 2'
+					env.DOCKERHUB_USERNAME = sh returnStdout: true, script: 'echo ${DATA}  | jq .dockerhub_username | cut -d \'"\' -f 2'
+					env.DOCKERHUB_PASSWORD = sh returnStdout: true, script: 'echo ${DATA}  | jq .dockerhub_password | cut -d \'"\' -f 2'
 				}
 				
                 echo "TF_VAR_tenancy_ocid=${TF_VAR_tenancy_ocid}"
@@ -84,6 +86,9 @@ pipeline {
 				echo "TF_VAR_ssh_private_key=${TF_VAR_ssh_private_key}"
 				echo "TF_VAR_region=${TF_VAR_region}"
 				echo "TF_VAR_terraform_state_url=${TF_VAR_terraform_state_url}"
+				echo "DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME}"
+				echo "DOCKERHUB_PASSWORD=${DOCKERHUB_PASSWORD}"
+				
 				
 				dir ('./tf/modules/atp') {
 					script {
@@ -267,6 +272,8 @@ pipeline {
 					sh 'cp ../tf/modules/atp/myatpwallet.zip  ./container-scripts/autonomous_database_wallet.zip'
 					sh 'ls'
 					sh 'docker build -t cpruvost/12213-wls-medrec-if .'
+					sh 'docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASSWORD}'
+					sh 'docker push cpruvost/12213-wls-medrec-if' 
 				}
 			}
 		}
