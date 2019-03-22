@@ -62,6 +62,7 @@ pipeline {
 					sh 'curl --version'
 					sh 'jq --version'
 					sh 'docker --version'
+					sh 'kubernetes version'
 				
 					//Get all cloud information needed from Hachicorp Vault.
 					env.DATA =  sh returnStdout: true, script: 'curl --header "X-Vault-Token: ${VAULT_TOKEN}" --request GET http://${VAULT_SERVER_IP}:8200/v1/secret/${VAULT_SECRET_NAME} | jq .data'
@@ -75,6 +76,7 @@ pipeline {
 					env.TF_VAR_region = sh returnStdout: true, script: 'echo ${DATA}  | jq .region | cut -d \'"\' -f 2'
 					env.DOCKERHUB_USERNAME = sh returnStdout: true, script: 'echo ${DATA}  | jq .dockerhub_username | cut -d \'"\' -f 2'
 					env.DOCKERHUB_PASSWORD = sh returnStdout: true, script: 'echo ${DATA}  | jq .dockerhub_password | cut -d \'"\' -f 2'
+					env.KUBECONFIG = './kubeconfig'
 				}
 				
                 echo "TF_VAR_tenancy_ocid=${TF_VAR_tenancy_ocid}"
@@ -88,6 +90,7 @@ pipeline {
 				echo "TF_VAR_terraform_state_url=${TF_VAR_terraform_state_url}"
 				echo "DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME}"
 				echo "DOCKERHUB_PASSWORD=${DOCKERHUB_PASSWORD}"
+				echo "KUBECONFIG=${KUBECONFIG}"
 				
 				
 				dir ('./tf/modules/atp') {
@@ -274,6 +277,15 @@ pipeline {
 					sh 'docker build -t cpruvost/12213-wls-medrec-if .'
 					sh 'docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASSWORD}'
 					sh 'docker push cpruvost/12213-wls-medrec-if' 
+				}
+			}
+		}
+		
+		stage('Kubernetes Application Deployment') { 
+            steps {
+				dir ('./kubernetes') {
+					sh 'cp ../tf/modules/oke/kubeconfig ./kubeconfig'
+					sh 'kubectl version'
 				}
 			}
 		}
