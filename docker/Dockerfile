@@ -22,7 +22,7 @@ FROM oracle/weblogic:12.2.1.3-developer
 
 # Maintainer
 # ----------
-MAINTAINER Monica Riccelli <monica.riccelli@oracle.com>
+MAINTAINER Christophe Pruvost <christophe.pruvost@oracle.com>
 
 ARG CUSTOM_DOMAIN_NAME="${CUSTOM_DOMAIN_NAME:-domain1}"
 ARG CUSTOM_ADMIN_PORT="${CUSTOM_ADMIN_PORT:-7001}"  

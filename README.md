@@ -32,7 +32,8 @@ Do not hesitate to use it and ask for enhancements if you have any ideas.
 1. Pre-requisites [01-prereq.md](docs/01-prereq.md)
 2. Autonomous Transaction Processing DevOps [02-atp.md](docs/02-atp.md)
 3. Oracle Kubernetes Engine DevOps [03-kubernetes.md](docs/03-kubernetes.md)
-4. Docker Packaging with WebLogic Server and Deployment of JEE Application (Medrec) [04-medrec.md](docs/04-medrec.md)
+4. Medrec Docker Packaging with WebLogic Server and Deployment on Kubernetes [04-medrec.md](docs/04-medrec.md)
+5. DNS Zone Management [05-dns.md](docs/05-dns.md)
 
 ## Feedback
 
