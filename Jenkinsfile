@@ -266,6 +266,7 @@ pipeline {
 					sh 'rm -rf ./container-scripts/autonomous_database_wallet.zip'
 					sh 'cp ../tf/modules/atp/myatpwallet.zip  ./container-scripts/autonomous_database_wallet.zip'
 					sh 'ls'
+					sh 'docker build -t cpruvost/12213-wls-medrec-if .'
 				}
 			}
 		}
