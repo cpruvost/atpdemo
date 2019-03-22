@@ -235,5 +235,20 @@ pipeline {
 			}
 		}
 		
+		stage('TF Apply Create OKE ') { 
+            steps {
+				dir ('./tf/modules/oke') {
+					//Terraform apply
+					//Terraform oci provider bugg with jenkins so just use an OKE Cluster created before. (same bugg as Atp). You can use OCI CLI too if you want.
+					//Error Message : * data.oci_identity_availability_domain.ad2: data.oci_identity_availability_domain.ad2: host is invalid. parse https://identity.eu-frankfurt-1.oraclecloud.com: invalid character "\n" in host name
+					//sh 'terraform apply -input=false -auto-approve "myplan"'
+					
+					//Get the kubeconfig file
+					sh 'oci ce cluster create-kubeconfig --cluster-id=ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaae3tsnbugrtdgmrugyydgnzwheydszbvhfrdsn3cgc4tgojwmrsw  --file=./kubeconfig'
+					sh 'ls'
+				}
+			}
+		}
+		
 	}	
 }
