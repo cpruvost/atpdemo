@@ -264,7 +264,7 @@ pipeline {
 					sh 'unzip -o ./containerscript.zip'
 					sh 'unzip -o ./properties.zip'
 					sh 'rm -rf ./container-scripts/autonomous_database_wallet.zip'
-					sh 'cp ../tf/modules/atp/myatpwallet.zip  ./autonomous_database_wallet.zip'
+					sh 'cp ../tf/modules/atp/myatpwallet.zip  ./container-scripts/autonomous_database_wallet.zip'
 					sh 'ls'
 				}
 			}
