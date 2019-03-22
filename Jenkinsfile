@@ -244,7 +244,7 @@ pipeline {
 					//sh 'terraform apply -input=false -auto-approve "myplan"'
 					
 					//Get the kubeconfig file
-					sh 'oci ce cluster create-kubeconfig --cluster-id=ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaae3tsnbugrtdgmrugyydgnzwheydszbvhfrdsn3cgc4tgojwmrsw  --file=./kubeconfig'
+					sh '/home/tomcat/bin/oci ce cluster create-kubeconfig --cluster-id=ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaae3tsnbugrtdgmrugyydgnzwheydszbvhfrdsn3cgc4tgojwmrsw  --file=./kubeconfig'
 					sh 'ls'
 				}
 			}
