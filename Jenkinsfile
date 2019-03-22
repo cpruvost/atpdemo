@@ -215,12 +215,15 @@ pipeline {
 		stage('TF Plan Create OKE ') { 
             steps {
 				dir ('./tf/modules/oke') {
-					sh 'ls'
 					
 					//Terraform initialization in order to get oci plugin provider	
 					//sh 'terraform init -input=false -backend-config="address=${TF_VAR_terraform_state_url}"'
 					//TO DO LATER- Declare another backend config in OCI Object Storage for OKE.
 					sh 'terraform init -input=false'
+					
+					//Get The API Key from Atp
+					sh 'cp ../atp/bmcs_api_key.pem ./bmcs_api_key.pem'
+					sh 'ls'
 					
 					//Terraform plan
 					sh 'terraform plan -out myplan'
