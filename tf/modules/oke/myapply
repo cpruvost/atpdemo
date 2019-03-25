@@ -1,0 +1,234 @@
+terraform apply -input=false
+ -auto-approve
+data.oci_containerengine_node_pool_option.test_node_pool_option: Refreshing state...
+data.oci_identity_availability_domain.ad1: Refreshing state...
+data.oci_identity_availability_domain.ad2: Refreshing state...
+data.oci_containerengine_cluster_option.test_cluster_option: Refreshing state...
+oci_core_virtual_network.test_vcn: Creating...
+  cidr_block:               "" => "10.0.0.0/16"
+  compartment_id:           "" => "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+  default_dhcp_options_id:  "" => "<computed>"
+  default_route_table_id:   "" => "<computed>"
+  default_security_list_id: "" => "<computed>"
+  display_name:             "" => "tfVcnForClusters"
+  freeform_tags.%:          "" => "<computed>"
+  state:                    "" => "<computed>"
+  time_created:             "" => "<computed>"
+  vcn_domain_name:          "" => "<computed>"
+oci_core_virtual_network.test_vcn: Creation complete after 0s (ID: ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaaja...ka7apma2sz23y7xhk5423hyujikkvc2bz2niaq)
+oci_core_internet_gateway.test_ig: Creating...
+  compartment_id:  "" => "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+  display_name:    "" => "tfClusterInternetGateway"
+  enabled:         "" => "true"
+  freeform_tags.%: "" => "<computed>"
+  state:           "" => "<computed>"
+  time_created:    "" => "<computed>"
+  time_modified:   "" => "<computed>"
+  vcn_id:          "" => "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaajafai6fp6mfc27ka7apma2sz23y7xhk5423hyujikkvc2bz2niaq"
+oci_core_internet_gateway.test_ig: Creation complete after 1s (ID: ocid1.internetgateway.oc1.eu-frankfurt-...p23tfgkkze5ywwx23nbu563oati7rbajbkkb2a)
+oci_core_route_table.test_route_table: Creating...
+  compartment_id:                           "" => "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+  display_name:                             "" => "tfClustersRouteTable"
+  freeform_tags.%:                          "" => "<computed>"
+  route_rules.#:                            "" => "1"
+  route_rules.2019903391.cidr_block:        "" => "<computed>"
+  route_rules.2019903391.destination:       "" => "0.0.0.0/0"
+  route_rules.2019903391.destination_type:  "" => "CIDR_BLOCK"
+  route_rules.2019903391.network_entity_id: "" => "ocid1.internetgateway.oc1.eu-frankfurt-1.aaaaaaaalsckgze6ubryf5p23tfgkkze5ywwx23nbu563oati7rbajbkkb2a"
+  state:                                    "" => "<computed>"
+  time_created:                             "" => "<computed>"
+  time_modified:                            "" => "<computed>"
+  vcn_id:                                   "" => "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaajafai6fp6mfc27ka7apma2sz23y7xhk5423hyujikkvc2bz2niaq"
+oci_core_route_table.test_route_table: Creation complete after 0s (ID: ocid1.routetable.oc1.eu-frankfurt-1.aaa...6o6qhcg7smfufsmutdosrnawllcpsoxcecf5pq)
+oci_core_subnet.nodePool_Subnet_1: Creating...
+  availability_domain:          "" => "nkTJ:EU-FRANKFURT-1-AD-1"
+  cidr_block:                   "" => "10.0.22.0/24"
+  compartment_id:               "" => "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+  dhcp_options_id:              "" => "<computed>"
+  display_name:                 "" => "tfSubNet1ForNodePool"
+  freeform_tags.%:              "" => "<computed>"
+  prohibit_public_ip_on_vnic:   "" => "<computed>"
+  route_table_id:               "" => "ocid1.routetable.oc1.eu-frankfurt-1.aaaaaaaarqhczipybzhjga6o6qhcg7smfufsmutdosrnawllcpsoxcecf5pq"
+  security_list_ids.#:          "" => "1"
+  security_list_ids.2562140328: "" => "ocid1.securitylist.oc1.eu-frankfurt-1.aaaaaaaacajpxyhszbblmtg6ezjyjpihihpk4zaerwug3wlm5l6o7c5yrbza"
+  state:                        "" => "<computed>"
+  subnet_domain_name:           "" => "<computed>"
+  time_created:                 "" => "<computed>"
+  vcn_id:                       "" => "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaajafai6fp6mfc27ka7apma2sz23y7xhk5423hyujikkvc2bz2niaq"
+  virtual_router_ip:            "" => "<computed>"
+  virtual_router_mac:           "" => "<computed>"
+oci_core_subnet.clusterSubnet_2: Creating...
+  availability_domain:          "" => "nkTJ:EU-FRANKFURT-1-AD-2"
+  cidr_block:                   "" => "10.0.21.0/24"
+  compartment_id:               "" => "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+  dhcp_options_id:              "" => "<computed>"
+  display_name:                 "" => "tfSubNet1ForClusters"
+  freeform_tags.%:              "" => "<computed>"
+  prohibit_public_ip_on_vnic:   "" => "<computed>"
+  route_table_id:               "" => "ocid1.routetable.oc1.eu-frankfurt-1.aaaaaaaarqhczipybzhjga6o6qhcg7smfufsmutdosrnawllcpsoxcecf5pq"
+  security_list_ids.#:          "" => "1"
+  security_list_ids.2562140328: "" => "ocid1.securitylist.oc1.eu-frankfurt-1.aaaaaaaacajpxyhszbblmtg6ezjyjpihihpk4zaerwug3wlm5l6o7c5yrbza"
+  state:                        "" => "<computed>"
+  subnet_domain_name:           "" => "<computed>"
+  time_created:                 "" => "<computed>"
+  vcn_id:                       "" => "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaajafai6fp6mfc27ka7apma2sz23y7xhk5423hyujikkvc2bz2niaq"
+  virtual_router_ip:            "" => "<computed>"
+  virtual_router_mac:           "" => "<computed>"
+oci_core_subnet.nodePool_Subnet_2: Creating...
+  availability_domain:          "" => "nkTJ:EU-FRANKFURT-1-AD-2"
+  cidr_block:                   "" => "10.0.23.0/24"
+  compartment_id:               "" => "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+  dhcp_options_id:              "" => "<computed>"
+  display_name:                 "" => "tfSubNet2ForNodePool"
+  freeform_tags.%:              "" => "<computed>"
+  prohibit_public_ip_on_vnic:   "" => "<computed>"
+  route_table_id:               "" => "ocid1.routetable.oc1.eu-frankfurt-1.aaaaaaaarqhczipybzhjga6o6qhcg7smfufsmutdosrnawllcpsoxcecf5pq"
+  security_list_ids.#:          "" => "1"
+  security_list_ids.2562140328: "" => "ocid1.securitylist.oc1.eu-frankfurt-1.aaaaaaaacajpxyhszbblmtg6ezjyjpihihpk4zaerwug3wlm5l6o7c5yrbza"
+  state:                        "" => "<computed>"
+  subnet_domain_name:           "" => "<computed>"
+  time_created:                 "" => "<computed>"
+  vcn_id:                       "" => "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaajafai6fp6mfc27ka7apma2sz23y7xhk5423hyujikkvc2bz2niaq"
+  virtual_router_ip:            "" => "<computed>"
+  virtual_router_mac:           "" => "<computed>"
+oci_core_subnet.clusterSubnet_1: Creating...
+  availability_domain:          "" => "nkTJ:EU-FRANKFURT-1-AD-1"
+  cidr_block:                   "" => "10.0.20.0/24"
+  compartment_id:               "" => "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+  dhcp_options_id:              "" => "<computed>"
+  display_name:                 "" => "tfSubNet1ForClusters"
+  freeform_tags.%:              "" => "<computed>"
+  prohibit_public_ip_on_vnic:   "" => "<computed>"
+  route_table_id:               "" => "ocid1.routetable.oc1.eu-frankfurt-1.aaaaaaaarqhczipybzhjga6o6qhcg7smfufsmutdosrnawllcpsoxcecf5pq"
+  security_list_ids.#:          "" => "1"
+  security_list_ids.2562140328: "" => "ocid1.securitylist.oc1.eu-frankfurt-1.aaaaaaaacajpxyhszbblmtg6ezjyjpihihpk4zaerwug3wlm5l6o7c5yrbza"
+  state:                        "" => "<computed>"
+  subnet_domain_name:           "" => "<computed>"
+  time_created:                 "" => "<computed>"
+  vcn_id:                       "" => "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaajafai6fp6mfc27ka7apma2sz23y7xhk5423hyujikkvc2bz2niaq"
+  virtual_router_ip:            "" => "<computed>"
+  virtual_router_mac:           "" => "<computed>"
+oci_core_subnet.nodePool_Subnet_2: Creation complete after 0s (ID: ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaa...ru7jfdekypitnu32uaktrpp5q2dcsmr3gp7ulq)
+oci_core_subnet.clusterSubnet_2: Creation complete after 0s (ID: ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaa...spobox6jwliwzpqjgfournntq4udwoscmxg4ha)
+oci_core_subnet.clusterSubnet_1: Creation complete after 1s (ID: ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaa...2j57sc4r5xsqxrelvgi5iha4ovcnrsxhnub4ra)
+oci_containerengine_cluster.test_cluster: Creating...
+  available_kubernetes_upgrades.#:                     "" => "<computed>"
+  compartment_id:                                      "" => "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+  endpoints.#:                                         "" => "<computed>"
+  kubernetes_version:                                  "" => "v1.10.11"
+  lifecycle_details:                                   "" => "<computed>"
+  metadata.#:                                          "" => "<computed>"
+  name:                                                "" => "AtpDemoCluster"
+  options.#:                                           "" => "1"
+  options.0.add_ons.#:                                 "" => "1"
+  options.0.add_ons.0.is_kubernetes_dashboard_enabled: "" => "true"
+  options.0.add_ons.0.is_tiller_enabled:               "" => "true"
+  options.0.kubernetes_network_config.#:               "" => "1"
+  options.0.kubernetes_network_config.0.pods_cidr:     "" => "10.1.0.0/16"
+  options.0.kubernetes_network_config.0.services_cidr: "" => "10.2.0.0/16"
+  options.0.service_lb_subnet_ids.#:                   "" => "2"
+  options.0.service_lb_subnet_ids.0:                   "" => "ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaaf7sek4v7k2udit2j57sc4r5xsqxrelvgi5iha4ovcnrsxhnub4ra"
+  options.0.service_lb_subnet_ids.1:                   "" => "ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaa5qcw7ulefnc7l5spobox6jwliwzpqjgfournntq4udwoscmxg4ha"
+  state:                                               "" => "<computed>"
+  vcn_id:                                              "" => "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaajafai6fp6mfc27ka7apma2sz23y7xhk5423hyujikkvc2bz2niaq"
+oci_core_subnet.nodePool_Subnet_1: Creation complete after 1s (ID: ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaa...7ac6jf2e2ucblhsumfzqtyr6kdbgz6z7jzs7ha)
+oci_containerengine_cluster.test_cluster: Still creating... (10s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (20s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (30s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (40s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (50s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (1m0s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (1m10s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (1m20s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (1m30s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (1m40s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (1m50s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (2m0s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (2m10s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (2m20s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (2m30s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (2m40s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (2m50s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (3m0s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (3m10s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (3m20s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (3m30s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (3m40s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (3m50s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (4m0s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (4m10s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (4m20s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (4m30s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (4m40s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (4m50s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (5m0s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (5m10s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (5m20s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (5m30s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (5m40s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (5m50s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (6m0s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (6m10s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (6m20s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (6m30s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (6m40s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (6m50s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (7m0s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (7m10s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (7m20s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (7m30s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (7m40s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (7m50s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (8m0s elapsed)
+oci_containerengine_cluster.test_cluster: Still creating... (8m10s elapsed)
+oci_containerengine_cluster.test_cluster: Creation complete after 8m15s (ID: ocid1.cluster.oc1.eu-frankfurt-1.aaaaaa...zzg5tdmmbwgrtdcnrygq2diojqhc2ggmbxmzst)
+data.oci_containerengine_cluster_kube_config.test_cluster_kube_config: Refreshing state...
+oci_containerengine_node_pool.test_node_pool: Creating...
+  cluster_id:                  "" => "ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaafqton3fmi4dmmzzg5tdmmbwgrtdcnrygq2diojqhc2ggmbxmzst"
+  compartment_id:              "" => "ocid1.compartment.oc1..aaaaaaaa2bpjscaa6jh4ct3h2blnvxtbuvah7l7or2nnxjqj56dhooh6y7nq"
+  initial_node_labels.#:       "" => "1"
+  initial_node_labels.0.key:   "" => "key"
+  initial_node_labels.0.value: "" => "value"
+  kubernetes_version:          "" => "v1.10.11"
+  name:                        "" => "tfPool"
+  node_image_id:               "" => "<computed>"
+  node_image_name:             "" => "Oracle-Linux-7.4"
+  node_metadata.%:             "" => "<computed>"
+  node_shape:                  "" => "VM.Standard2.1"
+  nodes.#:                     "" => "<computed>"
+  quantity_per_subnet:         "" => "2"
+  ssh_public_key:              "" => "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArn21PGy1SZ6AYFlztFUL1gv63EXMbSb4qo1SzPAwZgcQXjciU8YsettV81YIFzvIedEn4mhD8ebGKK1k8oYB7HYNsSywbXmqisI+75xY37EZT6ah+cxENmVxmzpOjOYH31wj792tf/WpUUpnN8MdIlTW8uAWNIa6Mz9YhAZ0sJILDOlSNr/rorrGYyYLBtJqbVAZlwEfUSgQTkMwBWK4L7aXOLMDFFAi2oEqsjmT3rWX55YzrwXIMvNXjslen6gXqrdoCeakKMbQ788fQqb1P9hgsmHhkERJfwhgFy+R1RUfPMHdZG7P2vNLUZDd54ROCmj2F852HkertpDMFNMWrQ== oracle@oraclelinux6.localdomain"
+  subnet_ids.#:                "" => "2"
+  subnet_ids.1550954450:       "" => "ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaayvy2gittmp67ao7ac6jf2e2ucblhsumfzqtyr6kdbgz6z7jzs7ha"
+  subnet_ids.1912893293:       "" => "ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaahqlc6vwlxkghceru7jfdekypitnu32uaktrpp5q2dcsmr3gp7ulq"
+local_file.test_cluster_kube_config_file: Creating...
+  content:  "" => "apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURqRENDQW5TZ0F3SUJBZ0lVTXVPWEx0SWFqY25qNkRYcno0RmNWSGVXQXRvd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1hqRUxNQWtHQTFVRUJoTUNWVk14RGpBTUJnTlZCQWdUQlZSbGVHRnpNUTh3RFFZRFZRUUhFd1pCZFhOMAphVzR4RHpBTkJnTlZCQW9UQms5eVlXTnNaVEVNTUFvR0ExVUVDeE1EVDBSWU1ROHdEUVlEVlFRREV3WkxPRk1nClEwRXdIaGNOTVRrd016STFNVFF5TmpBd1doY05NalF3TXpJek1UUXlOakF3V2pCZU1Rc3dDUVlEVlFRR0V3SlYKVXpFT01Bd0dBMVVFQ0JNRlZHVjRZWE14RHpBTkJnTlZCQWNUQmtGMWMzUnBiakVQTUEwR0ExVUVDaE1HVDNKaApZMnhsTVF3d0NnWURWUVFMRXdOUFJGZ3hEekFOQmdOVkJBTVRCa3M0VXlCRFFUQ0NBU0l3RFFZSktvWklodmNOCkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFOZlk2TkRCL0xQN2wzNTlvajNQMmxqeWl5allrMzR4V3hjVmU1QjcKcjg2VXRWMlEzQjdKa1J1ZG5SdjhqTFY1aC9HUGVtK01tWWlnN21XM2hEa2dIU0llRlQvSm5DUzA4SmpmS2FjagplUG5iZDZEV29tOExYWVE3OGw5ZDNOM08zeEhGTGJXVDNGTWVDWE8xNitacTd1UUwvVGlBMDBhaUQ3ZldFQ2ZQCnQra21oRXBtSUVVNGhObGREN1dhbCt3SGRCM21WTW1IZ3pwandDcDE2SmFrVTlzMmYrTmhPK0ZUTjNETC9ZVjgKNC9ta1VRK1hzNzhMa2JtT3NORFB3Q2JhVUo5bkxkcEFPeTZnc1ZaS2xGUVhKbFRNckNJTDNJayt5bldxRU5aSwpqWVdhekJSdTU4TzZ6eTJVZmFxQ2hiNDh4MDhIUDd0TEJYSXBKTDRxRkNrQy96TUNBd0VBQWFOQ01FQXdEZ1lEClZSMFBBUUgvQkFRREFnRUdNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdIUVlEVlIwT0JCWUVGQUNTVXZqWHc5MnIKeldFYURBc1VINEtRTVREbk1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQXY5RXRYbExsZnFrSjJObHQwM25LOApsVUlQSDNBeEh3M1dGNDZWYlVKN3k3YjZLbmlES2xuOUhVNE9YSEZhMWt6WUNKcHdjS1VhNHFBcVdmTXQzV3FTCjZRcVplNlZVTjMvcm05bWpjSnN3ZGZLdGthbGs5QTcvcXZRUEdCOHAyT0RWaEhUU0NaZG9oZXBKSEZ3YlZrS04KcnE2WFp2cUg3NjhqTVlqTFYrUEptR0ZNZmpqMXFTTHc0Q0U4SWh6d2pBSzRVZm1UL1dZTkdNSDI2eTJpZWNYTAp2VDNFR2EwejN3bVBLNGdpUUVwVkFJcUUzTmlEMkUzRGJDRVRpcHhhUDZlLzZUSHI1aVJHU09xSXlBYXlKOHNrClpNa0FEeHp6bHNSZUlGS2R0allRbDdJOHBkU2dMZVhzeVEwTWJ0NGQrWlJsSFVQT0VMdUZRaG13SG5qYzY4VjYKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=\n    server: https://c2ggmbxmzst.eu-frankfurt-1.clusters.oci.oraclecloud.com:6443\n  name: cluster-c2ggmbxmzst\ncontexts:\n- context:\n    cluster: cluster-c2ggmbxmzst\n    user: user-c2ggmbxmzst\n  name: context-c2ggmbxmzst\ncurrent-context: context-c2ggmbxmzst\nkind: \"\"\nusers:\n- name: user-c2ggmbxmzst\n  user:\n    token: eyJoZWFkZXIiOnsiQXV0aG9yaXphdGlvbiI6WyJTaWduYXR1cmUgdmVyc2lvbj1cIjFcIixoZWFkZXJzPVwiZGF0ZSAocmVxdWVzdC10YXJnZXQpIGhvc3QgY29udGVudC1sZW5ndGggY29udGVudC10eXBlIHgtY29udGVudC1zaGEyNTZcIixrZXlJZD1cIm9jaWQxLnRlbmFuY3kub2MxLi5hYWFhYWFhYWhyczRhdmFtYXhpc2NvdXllb2lyYzdoejVieXZ1bXd5dmplZHNscHNkYjJkMnhlMmtwMnEvb2NpZDEudXNlci5vYzEuLmFhYWFhYWFhZTRpZXA1d3pkZnFib3h3czZtbHVidDRyc3N5Z21tdTdvZWs2cXEyZGk3bGd5emxxazVzcS80Zjo5MDowOTpkNzoyYTplYTo4MTphODo3Njo5NzoyYTo1MTo5YzplOTozNjowM1wiLGFsZ29yaXRobT1cInJzYS1zaGEyNTZcIixzaWduYXR1cmU9XCJjYklaaHBoRnZGY1B5eTd3VTNWTEJnTlRTdWNRTVA4T2pNOVNoUVFWa0c0K3kvV2MwamRaOVYyeDF1dzdFQzJiSy83cjJUMWp4b2ZOeXFzUXozcXVTTkdabkx5YkdNMVBJYVJjeHh0N09HdndGT3Q0ZldsbzZ3akJGeWJydXpIcnlNUDRNMjF0WkROaWJVMjdZNzBQZ1dQSVFKZTVsK0tPOGtmREw2QnpmL0o4eXltOGptbHdjY1hjZEpCUkxEQU02VFhBR3hKa0VCMGFVNnR1OW40WHFzZXBhc0dTSkM5VGlOOENoZkIzVFh1NDNtTlpkQ3NUM21oNkUzdmJGNVhSWDhtNWxXOFpVTXJpV0lNRzZiVUQ0TG4wR3lrNXVpb1J3TnFaby9hYit6cllWU0dYbGdXeVlOeU1DVkdxWW1OUFExaTFZNE5pQk9TK3JSanQydXlKS2c9PVwiIl0sIkNvbnRlbnQtTGVuZ3RoIjpbIjQ1Il0sIkNvbnRlbnQtVHlwZSI6WyJhcHBsaWNhdGlvbi9qc29uIl0sIkRhdGUiOlsiTW9uLCAyNSBNYXIgMjAxOSAxNDozNzoyNCBHTVQiXSwiWC1Db250ZW50LVNoYTI1NiI6WyI4NFV5K2ZNUFZ4S2hKcTVLME1TSk1FSHEwUVg5dmxyNVhqNnhPNDk4UUtJPSJdfSwiYm9keSI6eyJ0b2tlblZlcnNpb24iOiIxLjAuMCIsImV4cGlyYXRpb24iOjI1OTIwMDB9LCJob3N0IjoiY29udGFpbmVyZW5naW5lLmV1LWZyYW5rZnVydC0xLm9yYWNsZWNsb3VkLmNvbSIsInJlcXVlc3RfdXJpIjoiLzIwMTgwMjIyL2NsdXN0ZXJzL29jaWQxLmNsdXN0ZXIub2MxLmV1LWZyYW5rZnVydC0xLmFhYWFhYWFhYWZxdG9uM2ZtaTRkbW16emc1dGRtbWJ3Z3J0ZGNucnlncTJkaW9qcWhjMmdnbWJ4bXpzdC9rdWJlY29uZmlnL2NvbnRlbnQifQ==\n"
+  filename: "" => "C:\\Travail\\Travail2019\\Demos\\InfraAsCode\\terraform13032019\\docs\\examples\\container_engine/test_cluster_kubeconfig"
+local_file.test_cluster_kube_config_file: Creation complete after 0s (ID: 34ad113d58ab8887600515173164ee78498d72de)
+oci_containerengine_node_pool.test_node_pool: Creation complete after 3s (ID: ocid1.nodepool.oc1.eu-frankfurt-1.aaaaa...bsmyztqzbsmvsdkzbuhezwcolcgnztiobugjsd)
+
+Apply complete! Resources: 10 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+cluster = {
+  id = ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaafqton3fmi4dmmzzg5tdmmbwgrtdcnrygq2diojqhc2ggmbxmzst
+  kubernetes_version = v1.10.11
+  name = AtpDemoCluster
+}
+cluster_kubernetes_versions = [
+    v1.10.11,
+    v1.11.8,
+    v1.12.6
+]
+node_pool = {
+  id = ocid1.nodepool.oc1.eu-frankfurt-1.aaaaaaaaafstsodbg5tgiobsmyztqzbsmvsdkzbuhezwcolcgnztiobugjsd
+  kubernetes_version = v1.10.11
+  name = tfPool
+  subnet_ids = [ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaayvy2gittmp67ao7ac6jf2e2ucblhsumfzqtyr6kdbgz6z7jzs7ha ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaahqlc6vwlxkghceru7jfdekypitnu32uaktrpp5q2dcsmr3gp7ulq]
+}
+node_pool_kubernetes_version = [
+    v1.10.11,
+    v1.11.8,
+    v1.12.6
+]

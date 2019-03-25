@@ -257,9 +257,19 @@ pipeline {
 					//Terraform oci provider bugg with jenkins so just use an OKE Cluster created before. (same bugg as Atp). You can use OCI CLI too if you want.
 					//Error Message : * data.oci_identity_availability_domain.ad2: data.oci_identity_availability_domain.ad2: host is invalid. parse https://identity.eu-frankfurt-1.oraclecloud.com: invalid character "\n" in host name
 					//sh 'terraform apply -input=false -auto-approve "myplan"'
+					//So use the OKE Cluster created before for the demo.
+					//Creation Simulation
+					sh 'sleep 8.1m'
+					sh 'cat ./myapply'
 					
 					//Get the kubeconfig file
-					sh '/home/tomcat/bin/oci ce cluster create-kubeconfig --cluster-id=ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaae3tsnbugrtdgmrugyydgnzwheydszbvhfrdsn3cgc4tgojwmrsw  --file=./kubeconfig'
+					
+					//Old OKE Cluster 
+					//sh '/home/tomcat/bin/oci ce cluster create-kubeconfig --cluster-id=ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaae3tsnbugrtdgmrugyydgnzwheydszbvhfrdsn3cgc4tgojwmrsw  --file=./kubeconfig'
+					
+					//New OKE Cluster for demo 
+					sh '/home/tomcat/bin/oci ce cluster create-kubeconfig --cluster-id=ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaafqton3fmi4dmmzzg5tdmmbwgrtdcnrygq2diojqhc2ggmbxmzst  --file=./kubeconfig'
+					
 					sh 'ls'
 				}
 			}
@@ -296,6 +306,7 @@ pipeline {
 					sh 'cp ../tf/modules/oke/kubeconfig ./kubeconfig'
 					sh 'kubectl version'
 					sh 'kubectl apply -f deploymedrec.yml'
+					sh 'kubectl apply -f servicemedrec.yml'
 				}
 			}
 		}
