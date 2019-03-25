@@ -259,8 +259,8 @@ pipeline {
 					//sh 'terraform apply -input=false -auto-approve "myplan"'
 					//So use the OKE Cluster created before for the demo.
 					//Creation Simulation
-					sh 'sleep 8.1m'
-					sh 'cat ./myapply'
+					//sh 'sleep 8.1m'
+					//sh 'cat ./myapply'
 					
 					//Get the kubeconfig file
 					
