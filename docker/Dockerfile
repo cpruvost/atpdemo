@@ -50,15 +50,16 @@ COPY container-scripts/* /u01/oracle/
 
 #Create directory where domain will be written to
 USER root
-#Kris Update due to problem of permission during build
-RUN chown oracle:oracle /u01/oracle/*
-RUN chmod 777 /u01/oracle/*
 
 # Install unzip
 RUN yum -y install unzip
 RUN unzip -o /u01/oracle/autonomous_database_wallet.zip
 RUN rm /u01/oracle/sqlnet.ora
 RUN mv /u01/oracle/sqlnet.ora.medrec /u01/oracle/sqlnet.ora
+
+#Kris Update due to problem of permission during build
+RUN chown oracle:oracle /u01/oracle/*
+RUN chmod 777 /u01/oracle/*
 
 RUN chmod +xw /u01/oracle/*.sh && \
     chmod +xw /u01/oracle/*.py && \
