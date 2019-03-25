@@ -283,9 +283,9 @@ pipeline {
 					
 					sh 'cat ./container-scripts/datasource.properties.oracle.txt'
 					
-					//sh 'docker build -t cpruvost/12213-wls-medrec-if .'
-					//sh 'docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASSWORD}'
-					//sh 'docker push cpruvost/12213-wls-medrec-if' 
+					sh 'docker build -t cpruvost/12213-wls-medrec-if .'
+					sh 'docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASSWORD}'
+					sh 'docker push cpruvost/12213-wls-medrec-if' 
 				}
 			}
 		}
@@ -295,6 +295,7 @@ pipeline {
 				dir ('./kubernetes') {
 					sh 'cp ../tf/modules/oke/kubeconfig ./kubeconfig'
 					sh 'kubectl version'
+					sh 'kubectl apply -f deploymedrec.yml'
 				}
 			}
 		}
