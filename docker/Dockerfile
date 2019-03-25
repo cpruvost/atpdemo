@@ -56,7 +56,9 @@ RUN chmod 777 /u01/oracle/*
 
 # Install unzip
 RUN yum -y install unzip
-RUN unzip /u01/oracle/autonomous_database_wallet.zip
+RUN unzip -o /u01/oracle/autonomous_database_wallet.zip
+RUN rm /u01/oracle/sqlnet.ora
+RUN mv /u01/oracle/sqlnet.ora.medrec /u01/oracle/sqlnet.ora
 
 RUN chmod +xw /u01/oracle/*.sh && \
     chmod +xw /u01/oracle/*.py && \
