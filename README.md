@@ -34,6 +34,7 @@ Do not hesitate to use it and ask for enhancements if you have any ideas.
 3. Oracle Kubernetes Engine DevOps [03-kubernetes.md](docs/03-kubernetes.md)
 4. Medrec Docker Packaging with WebLogic Server and Deployment on Kubernetes [04-medrec.md](docs/04-medrec.md)
 5. DNS Zone Management [05-dns.md](docs/05-dns.md)
+6. Scale your infrastructure [06-scale.md](docs/06-scale.md)
 
 ## Feedback
 
