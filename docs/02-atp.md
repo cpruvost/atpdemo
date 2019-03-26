@@ -1,6 +1,6 @@
 # Autonomous Transaction Processing DevOps
 
-The goal of first part of the pipeline is :
+The goal of the first part of the pipeline is :
 
 - Create an Autonomous Transaction Processing Database (Atp) with `terraform`
 - Create the schema "Medrec" (tables & data) with `SQLcl`
