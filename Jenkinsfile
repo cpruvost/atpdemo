@@ -265,10 +265,10 @@ pipeline {
 					//Get the kubeconfig file
 					
 					//Old OKE Cluster 
-					//sh '/home/tomcat/bin/oci ce cluster create-kubeconfig --cluster-id=ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaae3tsnbugrtdgmrugyydgnzwheydszbvhfrdsn3cgc4tgojwmrsw  --file=./kubeconfig'
+					sh '/home/tomcat/bin/oci ce cluster create-kubeconfig --cluster-id=ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaae3tsnbugrtdgmrugyydgnzwheydszbvhfrdsn3cgc4tgojwmrsw  --file=./kubeconfig'
 					
 					//New OKE Cluster for demo 
-					sh '/home/tomcat/bin/oci ce cluster create-kubeconfig --cluster-id=ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaafqton3fmi4dmmzzg5tdmmbwgrtdcnrygq2diojqhc2ggmbxmzst  --file=./kubeconfig'
+					//sh '/home/tomcat/bin/oci ce cluster create-kubeconfig --cluster-id=ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaafqton3fmi4dmmzzg5tdmmbwgrtdcnrygq2diojqhc2ggmbxmzst  --file=./kubeconfig'
 					
 					sh 'ls'
 				}
