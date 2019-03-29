@@ -12,7 +12,7 @@ pipeline {
 	
 	//Parameters of the pipeline. You can define more parameters in this pipeline in order to have less hard code variables.
 	parameters {
-        password(defaultValue: "WdPdcgUA1XNy23MoiR8uuOWu", description: 'What is the vault token ?', name: 'VAULT_TOKEN')
+        password(defaultValue: "xxxxxx", description: 'What is the vault token ?', name: 'VAULT_TOKEN')
 		string(defaultValue: "130.61.125.123", description: 'What is the vault server IP Address ?', name: 'VAULT_SERVER_IP')
 		string(defaultValue: "demoatp", description: 'What is the vault secret name ?', name: 'VAULT_SECRET_NAME')  
 		string(defaultValue: "atpdb", description: 'What is the database name ?', name: 'DATABASE_NAME') 
